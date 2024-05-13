@@ -1,2 +1,5 @@
 # Normalize EOL for all files that Git considers text files.
 * text=auto eol=lf
+
+web/* linguist-generated=true
+template.html linguist-generated=true
