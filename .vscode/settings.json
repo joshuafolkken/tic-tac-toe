@@ -7,5 +7,6 @@
   "editor.formatOnSave": true,
   "[gdscript]": {
     "editor.defaultFormatter": "EddieDover.gdscript-formatter-linter"
-  }
+  },
+  "cSpell.words": ["gdformat", "gdlint", "gdscript"]
 }
