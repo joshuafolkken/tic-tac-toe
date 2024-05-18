@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmryi85504aks"]
+
+[ext_resource type="PackedScene" uid="uid://d36ol5ljyv7r0" path="res://lines.tscn" id="1_s11nj"]
+
+[node name="Board" type="Node2D"]
+
+[node name="Lines" parent="." instance=ExtResource("1_s11nj")]
+
+[node name="Lines2" parent="." instance=ExtResource("1_s11nj")]
+rotation = 1.5708

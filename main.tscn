@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cuvea3u35e65l"]
+
+[ext_resource type="PackedScene" uid="uid://dmryi85504aks" path="res://board.tscn" id="1_ck7lo"]
+
+[node name="Main" type="Node"]
+
+[node name="Frame" type="Line2D" parent="."]
+points = PackedVector2Array(10, 10, 790, 10, 790, 590, 10, 590)
+closed = true
+width = 8.0
+metadata/_edit_group_ = true
+
+[node name="Board" parent="." instance=ExtResource("1_ck7lo")]
+position = Vector2(400, 300)
