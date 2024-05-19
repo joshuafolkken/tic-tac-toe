@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cuvea3u35e65l"]
+[gd_scene load_steps=3 format=3 uid="uid://cuvea3u35e65l"]
 
 [ext_resource type="PackedScene" uid="uid://dmryi85504aks" path="res://board.tscn" id="1_ck7lo"]
+[ext_resource type="Script" path="res://circle.gd" id="2_niajg"]
 
 [node name="Main" type="Node"]
 
@@ -12,3 +13,7 @@ metadata/_edit_group_ = true
 
 [node name="Board" parent="." instance=ExtResource("1_ck7lo")]
 position = Vector2(400, 300)
+
+[node name="Circle" type="Node2D" parent="."]
+position = Vector2(400, 300)
+script = ExtResource("2_niajg")
