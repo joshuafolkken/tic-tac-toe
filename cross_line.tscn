@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://jfsrs3xywxn1"]
+
+[node name="CrossLine" type="Line2D"]
+rotation = 0.785398
+points = PackedVector2Array(-85, 2.08165e-12, 85, 2.08165e-12)
+width = 25.0
+default_color = Color(0.580392, 0.737255, 0.941176, 1)
