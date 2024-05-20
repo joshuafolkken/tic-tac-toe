@@ -1,8 +1,8 @@
 @tool
 extends Node2D
 
-@export var radius := 65.0
-@export var line_width := 15.0
+@export var radius := 58.0
+@export var line_width := 22.0
 @export var color := Color8(148, 188, 240)
 
 
