@@ -1,7 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://cyj6tu264upor"]
+[gd_scene load_steps=3 format=3 uid="uid://cyj6tu264upor"]
 
+[ext_resource type="Script" path="res://cell_button_2d.gd" id="1_iwntk"]
 [ext_resource type="PackedScene" uid="uid://vp62gro2lhae" path="res://cell_button.tscn" id="1_x6uef"]
 
 [node name="CellButton2D" type="Node2D"]
+script = ExtResource("1_iwntk")
 
 [node name="CellButton" parent="." instance=ExtResource("1_x6uef")]
