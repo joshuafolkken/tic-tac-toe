@@ -8,6 +8,8 @@
 
 [node name="CellLine1" parent="." instance=ExtResource("1_1sw8d")]
 position = Vector2(2.08165e-12, 174)
+line_index = 1
 
 [node name="CellLine2" parent="." instance=ExtResource("1_1sw8d")]
 position = Vector2(2.08165e-12, 348)
+line_index = 2

@@ -1,13 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://btxrxaqdr1r3n"]
+[gd_scene load_steps=3 format=3 uid="uid://btxrxaqdr1r3n"]
 
 [ext_resource type="PackedScene" uid="uid://cyj6tu264upor" path="res://cell_button_2d.tscn" id="1_pfcak"]
+[ext_resource type="Script" path="res://cell_line.gd" id="1_yg53p"]
 
 [node name="CellLine" type="Node2D"]
+script = ExtResource("1_yg53p")
 
 [node name="Button0" parent="." instance=ExtResource("1_pfcak")]
 
 [node name="Button1" parent="." instance=ExtResource("1_pfcak")]
 position = Vector2(174, 0)
+button_index = 1
 
 [node name="Button2" parent="." instance=ExtResource("1_pfcak")]
 position = Vector2(348, 2.08165e-12)
+button_index = 2
