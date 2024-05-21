@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxenlckbrd3fb"]
+
+[ext_resource type="PackedScene" uid="uid://btxrxaqdr1r3n" path="res://cell_line.tscn" id="1_1sw8d"]
+
+[node name="Cells" type="Node2D"]
+
+[node name="CellLine0" parent="." instance=ExtResource("1_1sw8d")]
+
+[node name="CellLine1" parent="." instance=ExtResource("1_1sw8d")]
+position = Vector2(2.08165e-12, 174)
+
+[node name="CellLine2" parent="." instance=ExtResource("1_1sw8d")]
+position = Vector2(2.08165e-12, 348)

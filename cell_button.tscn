@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://vp62gro2lhae"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m1rbc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_44ba4"]
+bg_color = Color(0.580392, 0.737255, 0.941176, 0.25098)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fc2yo"]
+bg_color = Color(0.580392, 0.737255, 0.941176, 0.501961)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p4m18"]
+bg_color = Color(0.580392, 0.737255, 0.941176, 0.12549)
+
+[node name="CellButton" type="Button"]
+offset_right = 156.0
+offset_bottom = 156.0
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_m1rbc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_44ba4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fc2yo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_p4m18")
