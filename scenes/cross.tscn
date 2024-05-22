@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c6m15et87wo6l"]
 
-[ext_resource type="PackedScene" uid="uid://jfsrs3xywxn1" path="res://cross_line.tscn" id="1_6xqh6"]
+[ext_resource type="PackedScene" uid="uid://jfsrs3xywxn1" path="res://scenes/cross_line.tscn" id="1_6xqh6"]
 
 [node name="Cross" type="Node2D"]
 position = Vector2(400, 300)
