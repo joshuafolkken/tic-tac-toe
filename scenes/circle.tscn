@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dtlfjw3cxon5k"]
 
-[ext_resource type="Script" path="res://circle.gd" id="1_x55gd"]
+[ext_resource type="Script" path="res://src/circle.gd" id="1_x55gd"]
 
 [node name="Circle" type="Node2D"]
 visible = false
