@@ -4,6 +4,7 @@ extends Node2D
 @export var button_index := 0
 
 @onready var cell_button: Button = $CellButton
+@onready var click_sound: AudioStreamPlayer2D = $ClickSound
 
 signal button_clicked(row_index: int, col_index: int)
 
@@ -19,6 +20,7 @@ func _on_button_pressed() -> void:
 
 	#print("cell_line_index: %d, button_index: %d" % [line_index, button_index])
 	button_clicked.emit(line_index, button_index)
+	click_sound.play()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
