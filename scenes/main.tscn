@@ -1,9 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cuvea3u35e65l"]
+[gd_scene load_steps=4 format=3 uid="uid://cuvea3u35e65l"]
 
 [ext_resource type="PackedScene" uid="uid://dmryi85504aks" path="res://scenes/board.tscn" id="1_ck7lo"]
 [ext_resource type="Script" path="res://src/main.gd" id="1_oobpf"]
-[ext_resource type="PackedScene" uid="uid://dtlfjw3cxon5k" path="res://scenes/circle.tscn" id="2_3f3yw"]
-[ext_resource type="PackedScene" uid="uid://c6m15et87wo6l" path="res://scenes/cross.tscn" id="3_dxbgj"]
 [ext_resource type="PackedScene" uid="uid://dxenlckbrd3fb" path="res://scenes/cells.tscn" id="4_yfwbp"]
 
 [node name="Main" type="Node"]
@@ -18,10 +16,5 @@ metadata/_edit_group_ = true
 [node name="Board" parent="." instance=ExtResource("1_ck7lo")]
 position = Vector2(400, 300)
 
-[node name="Circle" parent="." instance=ExtResource("2_3f3yw")]
-
-[node name="Cross" parent="." instance=ExtResource("3_dxbgj")]
-visible = false
-
 [node name="Cells" parent="." instance=ExtResource("4_yfwbp")]
-position = Vector2(148, 48)
+position = Vector2(226, 126)
