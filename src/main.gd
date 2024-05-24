@@ -6,11 +6,13 @@ var board := [
 	[0, 0, 0],
 ]
 
+var current_player_id := 0
+
 @onready var cells := $Cells
 
 
-func update_board(row: int, col: int, player: int) -> void:
-	board[row][col] = player
+func update_board(row: int, col: int, player_id: int) -> void:
+	board[row][col] = player_id
 
 
 func get_board(row: int, col: int) -> int:
@@ -23,15 +25,23 @@ func reset_board() -> void:
 			board[row][col] = 0
 
 
-func _on_button_clicked(row_index: int, col_index: int) -> void:
-	print("button pressed: row: %d, col: %d" % [row_index, col_index])
+func _on_button_clicked(row_index: int, col_index: int, cell_button_2d: CellButton2D) -> void:
+	# print("button pressed: row: %d, col: %d" % [row_index, col_index])
+
+	var status := current_player_id + 1
+	update_board(row_index, col_index, status)
+	cell_button_2d.update_status(status)
+
+	current_player_id = (current_player_id + 1) % 2
+
+	# print(board)
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for cell_line: CellLine in cells.get_children():
 		for cell_button_2d: CellButton2D in cell_line.get_children():
-			cell_button_2d.button_clicked.connect(_on_button_clicked)
+			cell_button_2d.button_clicked.connect(_on_button_clicked.bind(cell_button_2d))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

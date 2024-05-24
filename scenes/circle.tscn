@@ -3,6 +3,4 @@
 [ext_resource type="Script" path="res://src/circle.gd" id="1_x55gd"]
 
 [node name="Circle" type="Node2D"]
-visible = false
-position = Vector2(400, 300)
 script = ExtResource("1_x55gd")
