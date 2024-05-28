@@ -6,7 +6,7 @@ signal button_clicked(row_index: int, col_index: int)
 @export var button_index := 0
 
 @onready var cell_button: Button = $CellButton
-@onready var click_sound: AudioStreamPlayer2D = $ClickSound
+@onready var click_sound: ClickSound = $ClickSound
 @onready var cross: Node2D = $Cross
 @onready var circle: Node2D = $Circle
 
@@ -32,7 +32,6 @@ func _on_button_pressed() -> void:
 	var line_index = cell_line.line_index
 
 	#print("cell_line_index: %d, button_index: %d" % [line_index, button_index])
-	click_sound.play()
 	button_clicked.emit(line_index, button_index)
 
 
@@ -43,3 +42,8 @@ func _process(_delta: float) -> void:
 
 func update_status(status: int) -> void:
 	_show_mark(status)
+
+	if status == 1:
+		click_sound.play_cross()
+	if status == 2:
+		click_sound.play_circle()
