@@ -20,7 +20,7 @@ position = Vector2(400, 300)
 [node name="Cells" parent="." instance=ExtResource("4_yfwbp")]
 position = Vector2(226, 126)
 
-[node name="Button" type="Button" parent="."]
+[node name="ResetButton" type="Button" parent="."]
 offset_left = 717.0
 offset_top = 517.0
 offset_right = 773.0
