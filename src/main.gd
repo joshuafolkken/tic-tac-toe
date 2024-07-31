@@ -76,9 +76,9 @@ func _get_game_status() -> int:
 func _get_result_text(game_end_status: int) -> String:
 	match game_end_status:
 		GameStatus.X_WIN:
-			return "X Win!"
+			return "X Wins!"
 		GameStatus.Y_WIN:
-			return "O Win!"
+			return "O Wins!"
 		_:
 			return "Draw!"
 
