@@ -34,9 +34,12 @@ icon = ExtResource("4_3p3bl")
 expand_icon = true
 
 [node name="StatusLabel" type="Label" parent="."]
-offset_left = 671.0
-offset_top = 44.0
-offset_right = 767.0
-offset_bottom = 86.0
-theme_override_font_sizes/font_size = 30
+offset_left = 169.0
+offset_top = 242.0
+offset_right = 630.0
+offset_bottom = 362.0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 80
 text = "X wins!"
+horizontal_alignment = 1
+vertical_alignment = 1
