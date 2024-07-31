@@ -25,3 +25,17 @@ func play_circle() -> void:
 func play_reset() -> void:
 	set_pitch_scale(0.30)
 	play()
+
+
+func play_game_end() -> void:
+	await get_tree().create_timer(0.5).timeout
+	set_pitch_scale(2.00)
+	play()
+
+	await get_tree().create_timer(0.1).timeout
+	set_pitch_scale(2.20)
+	play()
+
+	await get_tree().create_timer(0.1).timeout
+	set_pitch_scale(2.40)
+	play()

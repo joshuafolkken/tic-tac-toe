@@ -34,9 +34,11 @@ corner_radius_bottom_right = 1024
 corner_radius_bottom_left = 1024
 
 [resource]
+Button/colors/font_color = Color(0.580392, 0.737255, 0.941176, 1)
 Button/colors/icon_hover_color = Color(0.580392, 0.737255, 0.941176, 1)
 Button/colors/icon_normal_color = Color(0.580392, 0.737255, 0.941176, 1)
 Button/colors/icon_pressed_color = Color(0.580392, 0.737255, 0.941176, 1)
 Button/styles/hover = SubResource("StyleBoxFlat_8mi0q")
 Button/styles/normal = SubResource("StyleBoxFlat_ftqw1")
 Button/styles/pressed = SubResource("StyleBoxFlat_rya7p")
+Label/colors/font_color = Color(0.580392, 0.737255, 0.941176, 1)
