@@ -3,13 +3,13 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m1rbc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_44ba4"]
-bg_color = Color(0.580392, 0.737255, 0.941176, 0.25098)
+bg_color = Color(0.580392, 0.737255, 0.941176, 0.188235)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fc2yo"]
-bg_color = Color(0.580392, 0.737255, 0.941176, 0.501961)
+bg_color = Color(0.580392, 0.737255, 0.941176, 0.376471)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p4m18"]
-bg_color = Color(0.580392, 0.737255, 0.941176, 0.12549)
+bg_color = Color(0.580392, 0.737255, 0.941176, 0)
 
 [node name="CellButton" type="Button"]
 offset_right = 156.0
