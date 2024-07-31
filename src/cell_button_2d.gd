@@ -17,6 +17,10 @@ func _ready() -> void:
 	cell_button.pressed.connect(_on_button_pressed)
 
 
+func set_button_visibility(value: bool) -> void:
+	cell_button.visible = value
+
+
 func _show_mark(status := 0) -> void:
 	var is_cross_visible = status == 1
 	var is_circle_visible = status == 2
@@ -24,7 +28,8 @@ func _show_mark(status := 0) -> void:
 	cross.visible = is_cross_visible
 	circle.visible = is_circle_visible
 
-	cell_button.visible = status == 0
+	if status != 0:
+		set_button_visibility(false)
 
 
 func _on_button_pressed() -> void:
