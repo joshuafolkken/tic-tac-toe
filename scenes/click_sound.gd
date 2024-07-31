@@ -20,3 +20,8 @@ func play_cross() -> void:
 func play_circle() -> void:
 	set_pitch_scale(0.60)
 	play()
+
+
+func play_reset() -> void:
+	set_pitch_scale(0.30)
+	play()

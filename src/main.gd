@@ -10,6 +10,7 @@ var current_player_id := 0
 
 @onready var cells := $Cells
 @onready var reset_button := $ResetButton
+@onready var click_sound: ClickSound = $ClickSound
 
 
 func update_board(row: int, col: int, player_id: int) -> void:
@@ -46,6 +47,7 @@ func _on_reset_button_pressed():
 			cell_button_2d.update_status(0)
 
 	current_player_id = 0
+	click_sound.play_reset()
 
 
 # Called when the node enters the scene tree for the first time.
