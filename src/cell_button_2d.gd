@@ -13,23 +13,23 @@ signal button_clicked(row_index: int, col_index: int)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	_show_mark()
 	cell_button.pressed.connect(_on_button_pressed)
+	reset()
 
 
 func set_button_visibility(value: bool) -> void:
 	cell_button.visible = value
 
 
-func _show_mark(status := 0) -> void:
+func _show_mark(status: int) -> void:
 	var is_cross_visible = status == 1
 	var is_circle_visible = status == 2
 
 	cross.visible = is_cross_visible
 	circle.visible = is_circle_visible
 
-	if status != 0:
-		set_button_visibility(false)
+	set_button_visibility(status == 0)
+	disappear(false)
 
 
 func _on_button_pressed() -> void:
@@ -52,3 +52,11 @@ func update_status(status: int) -> void:
 		click_sound.play_cross()
 	if status == 2:
 		click_sound.play_circle()
+
+
+func reset() -> void:
+	_show_mark(0)
+
+
+func disappear(value: bool) -> void:
+	modulate.a = 0.5 if value else 1.0

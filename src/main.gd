@@ -15,7 +15,10 @@ var board := [
 	[EMPTY, EMPTY, EMPTY],
 ]
 
+var buttons := []
+
 var current_player_id := 0
+var position_history := PositionHistory.new()
 
 @onready var cells := $Cells
 @onready var reset_button := $ResetButton
@@ -88,23 +91,34 @@ func _update_status_label(text: String) -> void:
 	status_label.visible = true
 
 
-func _iterate_cells(callback: Callable) -> void:
-	for cell_line: CellLine in cells.get_children():
-		for cell_button_2d: CellButton2D in cell_line.get_children():
-			callback.call(cell_button_2d)
-
-
-func _check_game_end() -> void:
+func _check_game_end() -> bool:
 	var game_status := _get_game_status()
 
 	if game_status == GameStatus.PLAYING:
-		return
+		return false
 
 	var label_text := _get_result_text(game_status)
 	_update_status_label(label_text)
 
-	_iterate_cells(func(cell_button_2d: CellButton2D): cell_button_2d.set_button_visibility(false))
+	for button in buttons:
+		button.set_button_visibility(false)
+
 	click_sound.play_game_end()
+
+	return true
+
+
+func _disappear_cells(positions: Array[Vector2]) -> void:
+	if positions[0] != PositionHistory.INVALID_POSITION:
+		var index = positions[0].x * 3 + positions[0].y
+		var button = buttons[index] as CellButton2D
+		button.reset()
+		board[positions[0].x][positions[0].y] = EMPTY
+
+	if positions[1] != PositionHistory.INVALID_POSITION:
+		var index = positions[1].x * 3 + positions[1].y
+		var button = buttons[index] as CellButton2D
+		button.disappear(true)
 
 
 func _on_button_clicked(row_index: int, col_index: int, cell_button_2d: CellButton2D) -> void:
@@ -114,18 +128,24 @@ func _on_button_clicked(row_index: int, col_index: int, cell_button_2d: CellButt
 	_update_board(row_index, col_index, status)
 	cell_button_2d.update_status(status)
 
+	var disappear_positions := position_history.add(Vector2(row_index, col_index))
+	_disappear_cells(disappear_positions)
+
+	if _check_game_end():
+		return
+
 	current_player_id = (current_player_id + 1) % 2
 
-	_check_game_end()
 
-
-func _on_reset_button_pressed():
+func _on_reset_button_pressed() -> void:
 	_reset_board()
+	position_history.reset()
 
 	current_player_id = 0
 	status_label.visible = false
-	_iterate_cells(func(cell_button_2d: CellButton2D): cell_button_2d.update_status(0))
-	_iterate_cells(func(cell_button_2d: CellButton2D): cell_button_2d.set_button_visibility(true))
+
+	for button in buttons:
+		button.reset()
 
 	click_sound.play_reset()
 
@@ -134,11 +154,10 @@ func _on_reset_button_pressed():
 func _ready() -> void:
 	reset_button.pressed.connect(_on_reset_button_pressed)
 
-	_iterate_cells(
-		func(cell_button_2d: CellButton2D): cell_button_2d.button_clicked.connect(
-			_on_button_clicked.bind(cell_button_2d)
-		)
-	)
+	for cell_line: CellLine in cells.get_children():
+		for cell_button_2d: CellButton2D in cell_line.get_children():
+			cell_button_2d.button_clicked.connect(_on_button_clicked.bind(cell_button_2d))
+			buttons.append(cell_button_2d)
 
 	_on_reset_button_pressed()
 
