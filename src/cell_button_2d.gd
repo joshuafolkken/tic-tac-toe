@@ -29,7 +29,7 @@ func _show_mark(status: int) -> void:
 	circle.visible = is_circle_visible
 
 	set_button_visibility(status == 0)
-	disappear(false)
+	fade(false)
 
 
 func _on_button_pressed() -> void:
@@ -50,7 +50,7 @@ func update_status(status: int) -> void:
 
 	if status == 1:
 		click_sound.play_cross()
-	if status == 2:
+	elif status == 2:
 		click_sound.play_circle()
 
 
@@ -58,5 +58,5 @@ func reset() -> void:
 	_show_mark(0)
 
 
-func disappear(value: bool) -> void:
+func fade(value: bool) -> void:
 	modulate.a = 0.5 if value else 1.0

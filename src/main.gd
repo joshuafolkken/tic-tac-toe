@@ -7,11 +7,10 @@ enum GameStatus {
 	Y_WIN = 2,
 }
 
-var buttons := []
-
-var current_player_id := 0
+var buttons := Buttons.new()
 var board := Board.new()
 var position_history := PositionHistory.new()
+var current_player_id := 0
 
 @onready var cells := $Cells
 @onready var reset_button := $ResetButton
@@ -43,30 +42,33 @@ func _check_game_end() -> bool:
 	var label_text := _get_result_text(board_status)
 	_update_status_label(label_text)
 
-	for button in buttons:
-		button.set_button_visibility(false)
-
+	buttons.end_game()
 	click_sound.play_game_end()
 
 	return true
 
 
-func _disappear_cells(positions: Array[Vector2]) -> void:
-	if positions[0] != PositionHistory.INVALID_POSITION:
-		var index = positions[0].x * 3 + positions[0].y
-		var button = buttons[index] as CellButton2D
-		button.reset()
-		board.set_empty(positions[0].x as int, positions[0].y as int)
+func _clear_cell(position: Vector2) -> void:
+	if position == PositionHistory.INVALID_POSITION:
+		return
 
-	if positions[1] != PositionHistory.INVALID_POSITION:
-		var index = positions[1].x * 3 + positions[1].y
-		var button = buttons[index] as CellButton2D
-		button.disappear(true)
+	buttons.clear(position)
+	board.set_empty(position.x as int, position.y as int)
+
+
+func _fade_cell(position: Vector2) -> void:
+	if position == PositionHistory.INVALID_POSITION:
+		return
+
+	buttons.fade(position)
+
+
+func _disappear_cells(positions: Array[Vector2]) -> void:
+	_clear_cell(positions[0])
+	_fade_cell(positions[1])
 
 
 func _on_button_clicked(row_index: int, col_index: int, cell_button_2d: CellButton2D) -> void:
-	# print("button pressed: row: %d, col: %d" % [row_index, col_index])
-
 	var status := current_player_id + 1
 	board.update(row_index, col_index, status)
 	cell_button_2d.update_status(status)
@@ -83,9 +85,7 @@ func _on_button_clicked(row_index: int, col_index: int, cell_button_2d: CellButt
 func _on_reset_button_pressed() -> void:
 	board.reset()
 	position_history.reset()
-
-	for button in buttons:
-		button.reset()
+	buttons.reset_all()
 
 	current_player_id = 0
 	status_label.visible = false
@@ -103,8 +103,3 @@ func _ready() -> void:
 			buttons.append(cell_button_2d)
 
 	_on_reset_button_pressed()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
