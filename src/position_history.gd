@@ -1,9 +1,9 @@
 class_name PositionHistory
 
 const MAX_SIZE = 6
-const INVALID_POSITION = Vector2(-1, -1)
+const INVALID_POSITION = Vector2i(-1, -1)
 
-var _data: Array[Vector2] = []
+var _data: Array[Vector2i] = []
 
 
 func reset() -> void:
@@ -17,7 +17,7 @@ func _init() -> void:
 	reset()
 
 
-func add(position: Vector2) -> Array[Vector2]:
+func add(position: Vector2i) -> Array[Vector2i]:
 	if _data.size() > MAX_SIZE:
 		_data.pop_front()
 
