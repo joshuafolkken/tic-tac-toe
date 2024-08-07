@@ -48,22 +48,22 @@ func _check_game_end() -> bool:
 	return true
 
 
-func _clear_cell(position: Vector2) -> void:
+func _clear_cell(position: Vector2i) -> void:
 	if position == PositionHistory.INVALID_POSITION:
 		return
 
 	buttons.clear(position)
-	board.set_empty(position.x as int, position.y as int)
+	board.set_empty(position.x, position.y)
 
 
-func _fade_cell(position: Vector2) -> void:
+func _fade_cell(position: Vector2i) -> void:
 	if position == PositionHistory.INVALID_POSITION:
 		return
 
 	buttons.fade(position)
 
 
-func _disappear_cells(positions: Array[Vector2]) -> void:
+func _disappear_cells(positions: Array[Vector2i]) -> void:
 	_clear_cell(positions[0])
 	_fade_cell(positions[1])
 
