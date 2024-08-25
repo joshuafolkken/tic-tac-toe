@@ -27,23 +27,3 @@ func is_x() -> bool:
 
 func is_o() -> bool:
 	return _id == Id.O
-
-# func _is_equal(other: Variant) -> bool:
-# 	print("_is_equal: %s == %s" % [self, other])
-# 	return other is GamePlayer and _id == other._id
-
-# func _equals(other: Variant) -> bool:
-# 	print("equal: %s == %s" % [self, other])
-# 	return other is GamePlayer and _id == other._id
-
-# func is_equal(other: Variant) -> bool:
-# 	print("equal: %s == %s" % [self, other])
-# 	return other is GamePlayer and _id == other._id
-
-# func _eq(other: Variant) -> bool:
-# 	print("_eq: %s == %s" % [self, other])
-# 	return other is GamePlayer and _id == other._id
-
-# func eq(other: Variant) -> bool:
-# 	print("eq: %s == %s" % [self, other])
-# 	return other is GamePlayer and _id == other._id
