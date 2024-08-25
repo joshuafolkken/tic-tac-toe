@@ -17,14 +17,13 @@ func reset_all() -> void:
 		button.reset()
 
 
-func from_vector2i(position: Vector2i) -> CellButton2D:
-	var index = position.x * 3 + position.y
-	return _data[index]
+func from_board_position(board_position: BoardPosition) -> CellButton2D:
+	return _data[board_position.to_index()]
 
 
-func clear(position: Vector2i) -> void:
-	from_vector2i(position).reset()
+func clear(board_position: BoardPosition) -> void:
+	from_board_position(board_position).reset()
 
 
-func fade(position: Vector2i) -> void:
-	from_vector2i(position).fade(true)
+func fade(board_position: BoardPosition) -> void:
+	from_board_position(board_position).fade(true)
