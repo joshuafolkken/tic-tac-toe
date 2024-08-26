@@ -1,10 +1,10 @@
 extends Node
 
-var buttons := Buttons.new()
+var _buttons := Buttons.new()
 
-var board: Board
-var position_history: PositionHistory
-var current_player: GamePlayer
+var _board: Board
+var _position_history: PositionHistory
+var _current_player: GamePlayer
 
 @onready var cells := $Cells
 @onready var reset_button: Button = $ResetButton
@@ -13,11 +13,11 @@ var current_player: GamePlayer
 
 
 func reset() -> void:
-	board = Board.new()
-	position_history = PositionHistory.new()
-	current_player = GamePlayer.new()
+	_board = Board.new()
+	_position_history = PositionHistory.new()
+	_current_player = GamePlayer.new()
 
-	buttons.reset_all()
+	_buttons.reset_all()
 	status_label.visible = false
 
 	click_sound.play_reset()
@@ -29,7 +29,7 @@ func _update_result_label(text: String) -> void:
 
 
 func _check_game_end() -> bool:
-	var game_status := board.get_game_status()
+	var game_status := _board.get_game_status()
 
 	if game_status.is_playing():
 		return false
@@ -37,7 +37,7 @@ func _check_game_end() -> bool:
 	var result_text := game_status.get_result_text()
 	_update_result_label(result_text)
 
-	buttons.end_game()
+	_buttons.end_game()
 	click_sound.play_game_end()
 
 	return true
@@ -47,15 +47,15 @@ func _clear_cell(board_position: BoardPosition) -> void:
 	if board_position.is_invalid():
 		return
 
-	buttons.clear(board_position)
-	board.set_empty(board_position)
+	_buttons.clear(board_position)
+	_board.set_empty(board_position)
 
 
 func _fade_cell(board_position: BoardPosition) -> void:
 	if board_position.is_invalid():
 		return
 
-	buttons.fade(board_position)
+	_buttons.fade(board_position)
 
 
 func _disappear_cells(board_positions: Array[BoardPosition]) -> void:
@@ -64,17 +64,17 @@ func _disappear_cells(board_positions: Array[BoardPosition]) -> void:
 
 
 func _on_button_clicked(board_position: BoardPosition, cell_button_2d: CellButton2D) -> void:
-	var cell_status := CellStatus.from_game_player(current_player)
-	board.set_value(board_position, cell_status)
+	var cell_status := CellStatus.from_game_player(_current_player)
+	_board.set_value(board_position, cell_status)
 	cell_button_2d.update_status(cell_status)
 
-	var disappear_positions := position_history.add(board_position)
+	var disappear_positions := _position_history.add(board_position)
 	_disappear_cells(disappear_positions)
 
 	if _check_game_end():
 		return
 
-	current_player = current_player.next()
+	_current_player = _current_player.next()
 
 
 func _on_reset_button_pressed() -> void:
@@ -87,6 +87,6 @@ func _ready() -> void:
 	for cell_line: CellLine in cells.get_children():
 		for cell_button_2d: CellButton2D in cell_line.get_children():
 			cell_button_2d.button_clicked.connect(_on_button_clicked.bind(cell_button_2d))
-			buttons.append(cell_button_2d)
+			_buttons.append(cell_button_2d)
 
 	reset()
