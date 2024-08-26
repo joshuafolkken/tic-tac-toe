@@ -7,9 +7,9 @@ var position_history: PositionHistory
 var current_player: GamePlayer
 
 @onready var cells := $Cells
-@onready var reset_button := $ResetButton
+@onready var reset_button: Button = $ResetButton
 @onready var click_sound: ClickSound = $ClickSound
-@onready var status_label := $StatusLabel
+@onready var status_label: Label = $StatusLabel
 
 
 func reset() -> void:

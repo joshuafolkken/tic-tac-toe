@@ -13,10 +13,6 @@ func _to_string() -> String:
 	return "GamePlayer(id=%d)" % [_id]
 
 
-func next() -> GamePlayer:
-	return GamePlayer.new((_id + 1) % 2)
-
-
 func get_value() -> Id:
 	return _id
 
@@ -27,3 +23,7 @@ func is_x() -> bool:
 
 func is_o() -> bool:
 	return _id == Id.O
+
+
+func next() -> GamePlayer:
+	return GamePlayer.new((_id + 1) % 2)
