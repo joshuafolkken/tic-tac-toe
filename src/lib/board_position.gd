@@ -17,8 +17,8 @@ func _init(row_index: int, col_index: int) -> void:
 		or col_index >= MAX_SIZE
 	):
 		push_error("Invalid position: row_index=%d, col_index=%d" % [row_index, col_index])
-		_row_index = 0
-		_col_index = 0
+		_row_index = INVALID_INDEX
+		_col_index = INVALID_INDEX
 	else:
 		_row_index = row_index
 		_col_index = col_index
