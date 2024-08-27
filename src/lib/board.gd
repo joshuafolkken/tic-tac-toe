@@ -24,7 +24,9 @@ func get_value(board_position: BoardPosition) -> CellStatus:
 
 func _are_all_same_and_not_empty(cell_statuses: Array[CellStatus]) -> bool:
 	return cell_statuses.all(
-		func(cell_status): return cell_status.is_equal_and_not_empty(cell_statuses[0])
+		func(cell_status: CellStatus) -> void: return cell_status.is_equal_and_not_empty(
+			cell_statuses[0]
+		)
 	)
 
 

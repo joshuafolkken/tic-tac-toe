@@ -10,7 +10,7 @@ func _init(id: Id = Id.X) -> void:
 
 
 func _to_string() -> String:
-	return "GamePlayer(id=%d)" % [_id]
+	return "GamePlayer(id = %s)" % Id.keys()[_id]
 
 
 func get_value() -> Id:
