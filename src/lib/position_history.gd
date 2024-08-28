@@ -10,11 +10,11 @@ func _init() -> void:
 		_data.append(BoardPosition.invalid)
 
 
-func add(position: BoardPosition) -> Array[BoardPosition]:
+func append(board_position: BoardPosition) -> Array[BoardPosition]:
 	if _data.size() > MAX_SIZE:
 		_data.pop_front()
 
-	_data.push_back(position)
+	_data.push_back(board_position)
 
 	return [_data[0], _data[1]]
 

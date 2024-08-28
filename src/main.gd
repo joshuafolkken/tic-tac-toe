@@ -68,7 +68,7 @@ func _on_button_clicked(board_position: BoardPosition, cell_button_2d: CellButto
 	_board.set_value(board_position, cell_status)
 	cell_button_2d.update_status(cell_status)
 
-	var disappear_positions := _position_history.add(board_position)
+	var disappear_positions := _position_history.append(board_position)
 	_disappear_cells(disappear_positions)
 
 	if _check_game_end():

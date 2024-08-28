@@ -28,6 +28,10 @@ func hash() -> int:
 	return hash([_row_index, _col_index])
 
 
+func is_equal(other: BoardPosition) -> bool:
+	return _row_index == other._row_index and _col_index == other._col_index
+
+
 func _to_string() -> String:
 	return "BoardPosition(row = %d, col = %d)" % [_row_index, _col_index]
 
