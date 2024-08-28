@@ -29,12 +29,12 @@ func hash() -> int:
 
 
 func _to_string() -> String:
-	return "BoardPosition(row=%d, col=%d)" % [_row_index, _col_index]
+	return "BoardPosition(row = %d, col = %d)" % [_row_index, _col_index]
 
 
 func to_index() -> int:
 	return _row_index * MAX_SIZE + _col_index
 
 
-func is_invalid() -> bool:
-	return _row_index == INVALID_INDEX or _col_index == INVALID_INDEX
+func is_valid() -> bool:
+	return _row_index != INVALID_INDEX and _col_index != INVALID_INDEX

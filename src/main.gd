@@ -44,7 +44,7 @@ func _check_game_end() -> bool:
 
 
 func _clear_cell(board_position: BoardPosition) -> void:
-	if board_position.is_invalid():
+	if not board_position.is_valid():
 		return
 
 	_buttons.clear(board_position)
@@ -52,7 +52,7 @@ func _clear_cell(board_position: BoardPosition) -> void:
 
 
 func _fade_cell(board_position: BoardPosition) -> void:
-	if board_position.is_invalid():
+	if not board_position.is_valid():
 		return
 
 	_buttons.fade(board_position)
