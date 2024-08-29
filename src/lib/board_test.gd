@@ -22,17 +22,17 @@ func test_init() -> void:
 func test_set_value_and_get_value(
 	row_index: int,
 	col_index: int,
-	cell_status: CellStatus,
-	test_parameters := [[0, 1, CellStatus.x], [1, 2, CellStatus.o]]
+	expected: CellStatus.State,
+	test_parameters := [[0, 1, CellStatus.State.X], [1, 2, CellStatus.State.O]]
 ) -> void:
 	var board_position := BoardPosition.new(row_index, col_index)
 	var board := Board.new()
 
+	var cell_status := CellStatus.new(expected)
 	board.set_value(board_position, cell_status)
-	var actual := board.get_value(board_position)
-	var expected := cell_status
+	var actual := board.get_value(board_position).get_value()
 
-	assert_bool(actual).is_equal(expected)
+	assert_int(actual).is_equal(expected)
 
 # func are_all_same_and_not_empty(
 # 	cell_statuses: Array[CellStatus],
