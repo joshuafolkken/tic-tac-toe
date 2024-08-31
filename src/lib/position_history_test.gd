@@ -1,7 +1,14 @@
 # gdlint: disable=unused-argument
+# gdlint: disable=private-method-call
 # GdUnit generated TestSuite
 class_name PositionHistoryTest
 extends GdUnitTestSuite
+
+@warning_ignore("unused_parameter")
+
+
+func test_init() -> void:
+	await assert_error(func() -> void: PositionHistory.new()).is_success()
 
 
 @warning_ignore("unused_parameter")
@@ -63,4 +70,4 @@ func test_append(
 		var actual: BoardPosition = actuals[i]
 		var expected: BoardPosition = expecteds[i]
 
-		assert_bool(actual.is_equal(expected)).is_true()
+		assert_bool(actual._is_equal(expected)).is_true()

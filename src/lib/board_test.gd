@@ -1,6 +1,6 @@
 # gdlint: disable=unused-argument
 # GdUnit generated TestSuite
-class_name CellStatusTest
+class_name BoardTest
 extends GdUnitTestSuite
 
 @warning_ignore("unused_parameter")
@@ -33,19 +33,3 @@ func test_set_value_and_get_value(
 	var actual := board.get_value(board_position).get_value()
 
 	assert_int(actual).is_equal(expected)
-
-# func are_all_same_and_not_empty(
-# 	cell_statuses: Array[CellStatus],
-# )
-
-# func test_vertical_win() -> void:
-# 	var board := Board.new()
-
-# 	# 真ん中の列にXを配置
-# 	for row in range(BoardPosition.MAX_SIZE):
-# 		var position := BoardPosition.new(row, 1)  # 1は真ん中の列
-# 		board.set_value(position, CellStatus.new(CellStatus.State.X))
-
-# 	# 勝利条件をチェック
-# 	var winner := board.get_winner()
-# 	assert_that(winner).is_equal(CellStatus.new(CellStatus.State.X))

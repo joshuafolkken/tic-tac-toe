@@ -6,6 +6,13 @@ extends GdUnitTestSuite
 @warning_ignore("unused_parameter")
 
 
+func test_init() -> void:
+	await assert_error(func() -> void: GamePlayer.new()).is_success()
+
+
+@warning_ignore("unused_parameter")
+
+
 func test_to_string(
 	id: GamePlayer.Id,
 	expected: String,
