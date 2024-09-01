@@ -38,7 +38,7 @@ func test_get_at() -> void:
 
 
 func test_is_empty(
-	items: Array,
+	items: Array[CellStatus],
 	expected: bool,
 	test_parameters := [[[], true], [[CellStatus.empty], false]],
 ) -> void:
@@ -99,7 +99,7 @@ func test_get_winner(
 ) -> void:
 	var collection := CellStatusCollection.new()
 
-	for item in items:
+	for item: CellStatus in items:
 		collection.append(item)
 
 	var actual := collection.get_winner()
