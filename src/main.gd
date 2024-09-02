@@ -1,3 +1,4 @@
+class_name Main
 extends Node
 
 var _buttons := Buttons.new()
@@ -6,10 +7,10 @@ var _board: Board
 var _position_history: PositionHistory
 var _current_player: GamePlayer
 
-@onready var cells := $Cells
-@onready var reset_button: Button = $ResetButton
-@onready var click_sound: ClickSound = $ClickSound
-@onready var status_label: Label = $StatusLabel
+@onready var _cells := $Cells
+@onready var _reset_button: Button = $ResetButton
+@onready var _click_sound: ClickSound = $ClickSound
+@onready var _status_label: Label = $StatusLabel
 
 
 func reset() -> void:
@@ -18,14 +19,14 @@ func reset() -> void:
 	_current_player = GamePlayer.new()
 
 	_buttons.reset_all()
-	status_label.visible = false
+	_status_label.visible = false
 
-	click_sound.play_reset()
+	_click_sound.play_reset()
 
 
 func _update_result_label(text: String) -> void:
-	status_label.text = text
-	status_label.visible = true
+	_status_label.text = text
+	_status_label.visible = true
 
 
 func _check_game_end() -> bool:
@@ -38,7 +39,7 @@ func _check_game_end() -> bool:
 	_update_result_label(result_text)
 
 	_buttons.end_game()
-	click_sound.play_game_end()
+	_click_sound.play_game_end()
 
 	return true
 
@@ -82,9 +83,9 @@ func _on_reset_button_pressed() -> void:
 
 
 func _ready() -> void:
-	reset_button.pressed.connect(_on_reset_button_pressed)
+	_reset_button.pressed.connect(_on_reset_button_pressed)
 
-	for cell_line: CellLine in cells.get_children():
+	for cell_line: CellLine in _cells.get_children():
 		for cell_button_2d: CellButton2D in cell_line.get_children():
 			cell_button_2d.button_clicked.connect(_on_button_clicked.bind(cell_button_2d))
 			_buttons.append(cell_button_2d)
