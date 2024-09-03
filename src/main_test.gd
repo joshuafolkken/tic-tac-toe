@@ -31,11 +31,26 @@ func is_ready() -> void:
 func test_ready() -> void:
 	is_ready()
 
-	# if _scene != null:
-	# 	assert_bool(_scene.test).is_null()
-	#assert_that(_scene._board).is_null()
-	#assert_that(_scene._position_history).is_not_null()
-	#assert_that(_scene._current_player).is_not_null()
-#
-#assert_bool(_scene._board.get_game_status().is_playing()).is_true()
-#assert_bool(_scene.status_label.visible).is_false()
+
+func test_button_enabled() -> void:
+	assert_not_yet_implemented()
+
+
+func test_button_disabled() -> void:
+	assert_not_yet_implemented()
+
+
+func test_mark_fade() -> void:
+	assert_not_yet_implemented()
+
+
+func test_mark_disappear() -> void:
+	assert_not_yet_implemented()
+
+
+func test_x_wins() -> void:
+	assert_not_yet_implemented()
+
+
+func test_o_wins() -> void:
+	assert_not_yet_implemented()

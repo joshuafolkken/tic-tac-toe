@@ -72,10 +72,8 @@ func _on_button_clicked(board_position: BoardPosition, cell_button_2d: CellButto
 	var disappear_positions := _position_history.append(board_position)
 	_disappear_cells(disappear_positions)
 
-	if _check_game_end():
-		return
-
-	_current_player = _current_player.next()
+	if not _check_game_end():
+		_current_player = _current_player.next()
 
 
 func _on_reset_button_pressed() -> void:
