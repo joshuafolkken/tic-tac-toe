@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://src/main.gd" id="1_oobpf"]
 [ext_resource type="PackedScene" uid="uid://frnekhstlhqs" path="res://scenes/click_sound.tscn" id="2_yuer3"]
 [ext_resource type="Texture2D" uid="uid://dsb2rek5ni38t" path="res://assets/art/refresh-cw-svgrepo-com.svg" id="4_3p3bl"]
-[ext_resource type="PackedScene" uid="uid://dxenlckbrd3fb" path="res://scenes/cells.tscn" id="4_yfwbp"]
+[ext_resource type="PackedScene" uid="uid://dxenlckbrd3fb" path="res://scenes/cell_matrix.tscn" id="4_yfwbp"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_oobpf")

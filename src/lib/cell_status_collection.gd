@@ -1,34 +1,34 @@
 class_name CellStatusCollection
 
-var _statuses: Array[CellStatus]
+var _elements: Array[CellStatus]
 
 
 func _init() -> void:
-	_statuses = []
+	_elements = []
 
 
 func append(status: CellStatus) -> void:
-	_statuses.append(status)
+	_elements.append(status)
 
 
 func _get_at(index: int) -> CellStatus:
-	return _statuses[index]
+	return _elements[index]
 
 
 func _is_empty() -> bool:
-	return _statuses.is_empty()
+	return _elements.is_empty()
 
 
 func _are_all_same_and_not_empty() -> bool:
-	if _statuses.is_empty():
+	if _elements.is_empty():
 		return false
 
-	return _statuses.all(
+	return _elements.all(
 		func(cell_status: CellStatus) -> bool: return cell_status.is_equal_and_not_empty(
-			_statuses[0]
+			_elements[0]
 		)
 	)
 
 
 func get_winner() -> CellStatus:
-	return _statuses[0] if _are_all_same_and_not_empty() else CellStatus.empty
+	return _elements[0] if _are_all_same_and_not_empty() else CellStatus.empty

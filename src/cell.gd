@@ -1,4 +1,4 @@
-class_name CellButton2D
+class_name Cell
 extends Node2D
 
 signal button_clicked(board_position: BoardPosition)
@@ -29,7 +29,7 @@ func _show_mark(cell_status: CellStatus) -> void:
 
 
 func _on_button_pressed() -> void:
-	var cell_line := get_parent() as CellLine
+	var cell_line: CellLine = get_parent()
 	var line_index := cell_line.line_index
 	var board_position := BoardPosition.new(line_index, button_index)
 

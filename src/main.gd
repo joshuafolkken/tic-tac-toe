@@ -1,7 +1,7 @@
 class_name Main
 extends Node
 
-var _buttons := Buttons.new()
+var _cell_collection := CellCollection.new()
 
 var _board: Board
 var _position_history: PositionHistory
@@ -18,7 +18,7 @@ func reset() -> void:
 	_position_history = PositionHistory.new()
 	_current_player = GamePlayer.new()
 
-	_buttons.reset_all()
+	_cell_collection.reset_all()
 	_status_label.visible = false
 
 	_click_sound.play_reset()
@@ -38,7 +38,7 @@ func _check_game_end() -> bool:
 	var result_text := game_status.get_result_text()
 	_update_result_label(result_text)
 
-	_buttons.end_game()
+	_cell_collection.end_game()
 	_click_sound.play_game_end()
 
 	return true
@@ -48,7 +48,7 @@ func _clear_cell(board_position: BoardPosition) -> void:
 	if not board_position.is_valid():
 		return
 
-	_buttons.clear(board_position)
+	_cell_collection.clear(board_position)
 	_board.set_empty(board_position)
 
 
@@ -56,7 +56,7 @@ func _fade_cell(board_position: BoardPosition) -> void:
 	if not board_position.is_valid():
 		return
 
-	_buttons.fade(board_position)
+	_cell_collection.fade(board_position)
 
 
 func _disappear_cells(board_positions: Array[BoardPosition]) -> void:
@@ -64,10 +64,10 @@ func _disappear_cells(board_positions: Array[BoardPosition]) -> void:
 	_fade_cell(board_positions[1])
 
 
-func _on_button_clicked(board_position: BoardPosition, cell_button_2d: CellButton2D) -> void:
+func _on_button_clicked(board_position: BoardPosition, cell: Cell) -> void:
 	var cell_status := CellStatus.from_game_player(_current_player)
 	_board.set_value(board_position, cell_status)
-	cell_button_2d.update_status(cell_status)
+	cell.update_status(cell_status)
 
 	var disappear_positions := _position_history.append(board_position)
 	_disappear_cells(disappear_positions)
@@ -84,8 +84,8 @@ func _ready() -> void:
 	_reset_button.pressed.connect(_on_reset_button_pressed)
 
 	for cell_line: CellLine in _cells.get_children():
-		for cell_button_2d: CellButton2D in cell_line.get_children():
-			cell_button_2d.button_clicked.connect(_on_button_clicked.bind(cell_button_2d))
-			_buttons.append(cell_button_2d)
+		for cell: Cell in cell_line.get_children():
+			cell.button_clicked.connect(_on_button_clicked.bind(cell))
+			_cell_collection.append(cell)
 
 	reset()
