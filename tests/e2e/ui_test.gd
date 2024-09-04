@@ -1,20 +1,5 @@
-# gdlint: disable=private-method-call
-# GdUnit generated TestSuite
 class_name UITest
-extends GdUnitTestSuite
-
-const _SCENE_PATH := "res://scenes/main.tscn"
-
-var _scene_runner: GdUnitSceneRunner
-var _scene: Main
-
-
-func before_test() -> void:
-	_scene_runner = scene_runner(_SCENE_PATH)
-	assert_that(_scene_runner).is_not_null()
-
-	_scene = _scene_runner.scene()
-	assert_that(_scene).is_not_null()
+extends BaseTest
 
 
 func test_click_cell() -> void:

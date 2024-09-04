@@ -1,25 +1,25 @@
 class_name Board
 
-var _value: Dictionary = {}
+var _elements: Dictionary = {}
 
 
-func set_value(board_position: BoardPosition, cell_status: CellStatus) -> void:
-	_value[board_position.hash()] = cell_status
+func add(board_position: BoardPosition, cell_status: CellStatus) -> void:
+	_elements[board_position.hash()] = cell_status
 
 
-func set_empty(board_position: BoardPosition) -> void:
-	set_value(board_position, CellStatus.empty)
+func add_empty(board_position: BoardPosition) -> void:
+	add(board_position, CellStatus.empty)
 
 
 func _init() -> void:
 	for row_index in range(BoardPosition.MAX_SIZE):
 		for col_index in range(BoardPosition.MAX_SIZE):
 			var position := BoardPosition.new(row_index, col_index)
-			set_empty(position)
+			add_empty(position)
 
 
-func get_value(board_position: BoardPosition) -> CellStatus:
-	return _value[board_position.hash()]
+func get_element(board_position: BoardPosition) -> CellStatus:
+	return _elements[board_position.hash()]
 
 
 func _check_line(index: int, is_row: bool) -> CellStatus:
@@ -27,7 +27,7 @@ func _check_line(index: int, is_row: bool) -> CellStatus:
 
 	for i in range(BoardPosition.MAX_SIZE):
 		var position := BoardPosition.new(index if is_row else i, index if not is_row else i)
-		var value := get_value(position)
+		var value := get_element(position)
 		cell_status_collection.append(value)
 
 	return cell_status_collection.get_winner()
@@ -48,7 +48,7 @@ func _check_diagonal(reverse: bool) -> CellStatus:
 	for i in range(BoardPosition.MAX_SIZE):
 		var col_index := BoardPosition.MAX_SIZE - i - 1 if reverse else i
 		var position := BoardPosition.new(i, col_index)
-		var value := get_value(position)
+		var value := get_element(position)
 		cell_status_collection.append(value)
 
 	return cell_status_collection.get_winner()
@@ -58,7 +58,7 @@ func _is_full() -> bool:
 	for row_index in range(BoardPosition.MAX_SIZE):
 		for col_index in range(BoardPosition.MAX_SIZE):
 			var position := BoardPosition.new(row_index, col_index)
-			var value := get_value(position)
+			var value := get_element(position)
 
 			if value.is_empty():
 				return false

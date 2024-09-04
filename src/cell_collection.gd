@@ -1,37 +1,37 @@
-class_name CellCollection
+class_name CellCcollection
 
-var _elements: Array[Cell] = []
+var _elements: Dictionary = {}
 
 
-func append(button: Cell) -> void:
-	_elements.append(button)
+func add(position: BoardPosition, cell: Cell) -> void:
+	_elements[position.hash()] = cell
 
 
 func end_game() -> void:
-	for button in _elements:
-		button.set_button_visibility(false)
+	for cell: Cell in _elements.values():
+		cell.set_button_visibility(false)
 
 
 func reset_all() -> void:
-	for button in _elements:
-		button.reset()
+	for cell: Cell in _elements.values():
+		cell.reset()
 
 
-func _get_elements() -> Array[Cell]:
-	return _elements
+func get_element(position: BoardPosition) -> Cell:
+	return _elements[position.hash()]
 
 
-func _get_at(index: int) -> Cell:
-	return _elements[index]
+func clear(position: BoardPosition) -> void:
+	get_element(position).reset()
 
 
-func get_element(board_position: BoardPosition) -> Cell:
-	return _get_at(board_position.to_index())
+func fade(position: BoardPosition) -> void:
+	get_element(position).fade(true)
 
 
-func clear(board_position: BoardPosition) -> void:
-	get_element(board_position).reset()
+func _get_all_cells() -> Array[Cell]:
+	return _elements.values()
 
 
-func fade(board_position: BoardPosition) -> void:
-	get_element(board_position).fade(true)
+func _get_all_positions() -> Array[BoardPosition]:
+	return _elements.keys()

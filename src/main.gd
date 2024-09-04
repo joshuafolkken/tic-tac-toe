@@ -1,7 +1,7 @@
 class_name Main
 extends Node
 
-var _cell_collection := CellCollection.new()
+var _cell_collection := CellCcollection.new()
 
 var _board: Board
 var _position_history: PositionHistory
@@ -49,7 +49,7 @@ func _clear_cell(board_position: BoardPosition) -> void:
 		return
 
 	_cell_collection.clear(board_position)
-	_board.set_empty(board_position)
+	_board.add_empty(board_position)
 
 
 func _fade_cell(board_position: BoardPosition) -> void:
@@ -66,7 +66,7 @@ func _disappear_cells(board_positions: Array[BoardPosition]) -> void:
 
 func _on_button_clicked(board_position: BoardPosition, cell: Cell) -> void:
 	var cell_status := CellStatus.from_game_player(_current_player)
-	_board.set_value(board_position, cell_status)
+	_board.add(board_position, cell_status)
 	cell.update_status(cell_status)
 
 	var disappear_positions := _position_history.append(board_position)
@@ -86,6 +86,8 @@ func _ready() -> void:
 	for cell_line: CellLine in _cells.get_children():
 		for cell: Cell in cell_line.get_children():
 			cell.button_clicked.connect(_on_button_clicked.bind(cell))
-			_cell_collection.append(cell)
+
+			var board_position := BoardPosition.new(cell_line.get_index(), cell.get_index())
+			_cell_collection.add(board_position, cell)
 
 	reset()
