@@ -100,3 +100,33 @@ func test_mark_disappear_after_seven_clicks() -> void:
 	var second_position: BoardPosition = positions[1]
 	var second_cell := _scene._cell_collection.get_element(second_position)
 	assert_float(second_cell.modulate.a).is_equal(0.5)
+
+
+func test_reset_button() -> void:
+	var positions := [
+		BoardPosition.new(0, 0),
+		BoardPosition.new(1, 1),
+		BoardPosition.new(0, 1),
+	]
+
+	for position: BoardPosition in positions:
+		var cell := _scene._cell_collection.get_element(position)
+		cell._cell_button.emit_signal("pressed")
+
+	_scene._reset_button.emit_signal("pressed")
+
+	for row_index in range(3):
+		for col_index in range(3):
+			var position := BoardPosition.new(row_index, col_index)
+			var cell := _scene._cell_collection.get_element(position)
+			assert_bool(cell._cell_button.visible).is_true()
+			assert_bool(cell._cross.visible).is_false()
+			assert_bool(cell._circle.visible).is_false()
+			assert_float(cell.modulate.a).is_equal(1.0)
+
+	assert_bool(_scene._status_label.visible).is_false()
+
+	var first_position := BoardPosition.new(0, 0)
+	var first_cell := _scene._cell_collection.get_element(first_position)
+	first_cell._cell_button.emit_signal("pressed")
+	assert_bool(first_cell._cross.visible).is_true()
