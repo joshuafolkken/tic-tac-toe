@@ -26,5 +26,7 @@ func get_result_text() -> String:
 			return "X Wins!"
 		State.O_WIN:
 			return "O Wins!"
-		_:
+		State.DRAW:
 			return "Draw!"
+		_:
+			return "Playing!?"

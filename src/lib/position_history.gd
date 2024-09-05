@@ -2,22 +2,22 @@ class_name PositionHistory
 
 const MAX_SIZE = 6
 
-var _data: Array[BoardPosition] = []
+var _elements: Array[BoardPosition] = []
 
 
 func _init() -> void:
 	for i in range(MAX_SIZE):
-		_data.append(BoardPosition.invalid)
+		_elements.append(BoardPosition.invalid)
 
 
-func add(position: BoardPosition) -> Array[BoardPosition]:
-	if _data.size() > MAX_SIZE:
-		_data.pop_front()
+func append(board_position: BoardPosition) -> Array[BoardPosition]:
+	if _elements.size() > MAX_SIZE:
+		_elements.pop_front()
 
-	_data.push_back(position)
+	_elements.push_back(board_position)
 
-	return [_data[0], _data[1]]
+	return [_elements[0], _elements[1]]
 
 
 func _to_string() -> String:
-	return str(_data)
+	return str(_elements)

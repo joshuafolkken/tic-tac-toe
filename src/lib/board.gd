@@ -1,46 +1,36 @@
 class_name Board
 
-var _value: Dictionary = {}
+var _elements: Dictionary = {}
 
 
-func set_value(board_position: BoardPosition, cell_status: CellStatus) -> void:
-	_value[board_position.hash()] = cell_status
+func add(board_position: BoardPosition, cell_status: CellStatus) -> void:
+	_elements[board_position.hash()] = cell_status
 
 
-func set_empty(board_position: BoardPosition) -> void:
-	set_value(board_position, CellStatus.empty)
+func add_empty(board_position: BoardPosition) -> void:
+	add(board_position, CellStatus.empty)
 
 
 func _init() -> void:
 	for row_index in range(BoardPosition.MAX_SIZE):
 		for col_index in range(BoardPosition.MAX_SIZE):
 			var position := BoardPosition.new(row_index, col_index)
-			set_empty(position)
+			add_empty(position)
 
 
-func get_value(board_position: BoardPosition) -> CellStatus:
-	return _value[board_position.hash()]
-
-
-func _are_all_same_and_not_empty(cell_statuses: Array[CellStatus]) -> bool:
-	return cell_statuses.all(
-		func(cell_status): return cell_status.is_equal_and_not_empty(cell_statuses[0])
-	)
-
-
-func _get_winner_if_all_same(cell_statuses: Array[CellStatus]) -> CellStatus:
-	return cell_statuses[0] if _are_all_same_and_not_empty(cell_statuses) else CellStatus.empty
+func get_element(board_position: BoardPosition) -> CellStatus:
+	return _elements[board_position.hash()]
 
 
 func _check_line(index: int, is_row: bool) -> CellStatus:
-	var cell_statuses: Array[CellStatus] = []
+	var cell_status_collection := CellStatusCollection.new()
 
 	for i in range(BoardPosition.MAX_SIZE):
 		var position := BoardPosition.new(index if is_row else i, index if not is_row else i)
-		var value := get_value(position)
-		cell_statuses.append(value)
+		var value := get_element(position)
+		cell_status_collection.append(value)
 
-	return _get_winner_if_all_same(cell_statuses)
+	return cell_status_collection.get_winner()
 
 
 func _check_lines(is_horizontal: bool) -> CellStatus:
@@ -53,22 +43,22 @@ func _check_lines(is_horizontal: bool) -> CellStatus:
 
 
 func _check_diagonal(reverse: bool) -> CellStatus:
-	var cell_statuses: Array[CellStatus] = []
+	var cell_status_collection := CellStatusCollection.new()
 
 	for i in range(BoardPosition.MAX_SIZE):
 		var col_index := BoardPosition.MAX_SIZE - i - 1 if reverse else i
 		var position := BoardPosition.new(i, col_index)
-		var value := get_value(position)
-		cell_statuses.append(value)
+		var value := get_element(position)
+		cell_status_collection.append(value)
 
-	return _get_winner_if_all_same(cell_statuses)
+	return cell_status_collection.get_winner()
 
 
 func _is_full() -> bool:
 	for row_index in range(BoardPosition.MAX_SIZE):
 		for col_index in range(BoardPosition.MAX_SIZE):
 			var position := BoardPosition.new(row_index, col_index)
-			var value := get_value(position)
+			var value := get_element(position)
 
 			if value.is_empty():
 				return false
