@@ -23,10 +23,10 @@ func _ready() -> void:
 
 
 func disappear_cells(positions: Array[BoardPosition]) -> void:
-	if positions[0].is_valid():
-		_ui_manager.clear_cell(positions[0])
-	if positions[1].is_valid():
-		_ui_manager.fade_cell(positions[1])
+	for i in range(2):
+		if positions[i].is_valid():
+			var action := _ui_manager.clear_cell if i == 0 else _ui_manager.fade_cell
+			action.call(positions[i])
 
 
 func _on_cell_clicked(position: BoardPosition) -> void:
