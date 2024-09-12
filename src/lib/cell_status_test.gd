@@ -170,8 +170,6 @@ func test_from_game_player(
 ) -> void:
 	var game_player := GamePlayer.new(game_player_id)
 
-	print(is_success)
-
 	match is_success:
 		true:
 			await (

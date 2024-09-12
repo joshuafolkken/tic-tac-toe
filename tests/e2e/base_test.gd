@@ -19,7 +19,7 @@ func is_buttons_enabled() -> void:
 	for row_index in range(3):
 		for col_index in range(3):
 			var board_position := BoardPosition.new(row_index, col_index)
-			var cell := _scene._cell_collection.get_element(board_position)
+			var cell := _scene._ui_manager._cell_collection.get_element(board_position)
 			var cell_button := cell._cell_button
 			var cell_button_visible := cell_button.visible
 			var cross_visible := cell._cross.visible

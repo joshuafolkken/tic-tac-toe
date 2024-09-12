@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://cuvea3u35e65l"]
+[gd_scene load_steps=9 format=3 uid="uid://cuvea3u35e65l"]
 
 [ext_resource type="PackedScene" uid="uid://dmryi85504aks" path="res://scenes/board.tscn" id="1_ck7lo"]
 [ext_resource type="Script" path="res://src/main.gd" id="1_oobpf"]
 [ext_resource type="PackedScene" uid="uid://frnekhstlhqs" path="res://scenes/click_sound.tscn" id="2_yuer3"]
 [ext_resource type="Texture2D" uid="uid://dsb2rek5ni38t" path="res://assets/art/refresh-cw-svgrepo-com.svg" id="4_3p3bl"]
+[ext_resource type="Script" path="res://src/game_manager.gd" id="4_hu2l0"]
 [ext_resource type="PackedScene" uid="uid://dxenlckbrd3fb" path="res://scenes/cell_matrix.tscn" id="4_yfwbp"]
+[ext_resource type="Script" path="res://src/ui_manager.gd" id="5_p4x7d"]
+[ext_resource type="Script" path="res://src/input_handler.gd" id="8_0kf00"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_oobpf")
@@ -21,10 +24,16 @@ metadata/_edit_group_ = true
 [node name="Board" parent="." instance=ExtResource("1_ck7lo")]
 position = Vector2(400, 300)
 
-[node name="Cells" parent="." instance=ExtResource("4_yfwbp")]
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("4_hu2l0")
+
+[node name="UIManager" type="Node" parent="."]
+script = ExtResource("5_p4x7d")
+
+[node name="Cells" parent="UIManager" instance=ExtResource("4_yfwbp")]
 position = Vector2(226, 126)
 
-[node name="ResetButton" type="Button" parent="."]
+[node name="ResetButton" type="Button" parent="UIManager"]
 offset_left = 717.0
 offset_top = 517.0
 offset_right = 773.0
@@ -33,7 +42,7 @@ focus_mode = 0
 icon = ExtResource("4_3p3bl")
 expand_icon = true
 
-[node name="StatusLabel" type="Label" parent="."]
+[node name="StatusLabel" type="Label" parent="UIManager"]
 offset_left = 169.0
 offset_top = 242.0
 offset_right = 630.0
@@ -43,3 +52,6 @@ theme_override_font_sizes/font_size = 80
 text = "X wins!"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="InputHandler" type="Node" parent="."]
+script = ExtResource("8_0kf00")

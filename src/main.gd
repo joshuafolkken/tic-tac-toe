@@ -1,93 +1,50 @@
 class_name Main
 extends Node
 
-var _cell_collection := CellCcollection.new()
-
-var _board: Board
-var _position_history: PositionHistory
-var _current_player: GamePlayer
-
-@onready var _cells := $Cells
-@onready var _reset_button: Button = $ResetButton
+@onready var _game_manager: GameManager = $GameManager
+@onready var _ui_manager: UIManager = $UIManager
+@onready var _input_handler: InputHandler = $InputHandler
 @onready var _click_sound: ClickSound = $ClickSound
-@onready var _status_label: Label = $StatusLabel
 
 
 func reset() -> void:
-	_board = Board.new()
-	_position_history = PositionHistory.new()
-	_current_player = GamePlayer.new()
-
-	_cell_collection.reset_all()
-	_status_label.visible = false
-
+	_game_manager.reset()
+	_ui_manager.reset()
 	_click_sound.play_reset()
 
 
-func _update_result_label(text: String) -> void:
-	_status_label.text = text
-	_status_label.visible = true
+func _ready() -> void:
+	_input_handler.cell_clicked.connect(_on_cell_clicked)
+	_input_handler.reset_requested.connect(_on_reset_requested)
+	_game_manager.game_ended.connect(_on_game_ended)
+	_game_manager.player_changed.connect(_on_player_changed)
+
+	reset()
 
 
-func _check_game_end() -> bool:
-	var game_status := _board.get_game_status()
+func disappear_cells(positions: Array[BoardPosition]) -> void:
+	if positions[0].is_valid():
+		_ui_manager.clear_cell(positions[0])
+	if positions[1].is_valid():
+		_ui_manager.fade_cell(positions[1])
 
-	if game_status.is_playing():
-		return false
 
-	var result_text := game_status.get_result_text()
-	_update_result_label(result_text)
+func _on_cell_clicked(position: BoardPosition) -> void:
+	var cell_status := CellStatus.from_game_player(_game_manager.get_current_player())
+	_ui_manager.update_cell(position, cell_status)
+	var disappear_positions := _game_manager.make_move(position)
+	disappear_cells(disappear_positions)
 
-	_cell_collection.end_game()
+
+func _on_reset_requested() -> void:
+	reset()
+
+
+func _on_game_ended(result: String) -> void:
+	_ui_manager.end_game()
+	_ui_manager.update_status_label(result)
 	_click_sound.play_game_end()
 
-	return true
 
-
-func _clear_cell(board_position: BoardPosition) -> void:
-	if not board_position.is_valid():
-		return
-
-	_cell_collection.clear(board_position)
-	_board.add_empty(board_position)
-
-
-func _fade_cell(board_position: BoardPosition) -> void:
-	if not board_position.is_valid():
-		return
-
-	_cell_collection.fade(board_position)
-
-
-func _disappear_cells(board_positions: Array[BoardPosition]) -> void:
-	_clear_cell(board_positions[0])
-	_fade_cell(board_positions[1])
-
-
-func _on_button_clicked(board_position: BoardPosition, cell: Cell) -> void:
-	var cell_status := CellStatus.from_game_player(_current_player)
-	_board.add(board_position, cell_status)
-	cell.update_status(cell_status)
-
-	var disappear_positions := _position_history.append(board_position)
-	_disappear_cells(disappear_positions)
-
-	if not _check_game_end():
-		_current_player = _current_player.next()
-
-
-func _on_reset_button_pressed() -> void:
-	reset()
-
-
-func _ready() -> void:
-	_reset_button.pressed.connect(_on_reset_button_pressed)
-
-	for cell_line: CellLine in _cells.get_children():
-		for cell: Cell in cell_line.get_children():
-			cell.button_clicked.connect(_on_button_clicked.bind(cell))
-
-			var board_position := BoardPosition.new(cell_line.get_index(), cell.get_index())
-			_cell_collection.add(board_position, cell)
-
-	reset()
+func _on_player_changed(_player: GamePlayer) -> void:
+	pass
