@@ -52,6 +52,6 @@ jobs:
         with:
           godot-version: "4.3"
           paths: |
-            res://tests/
+            res://
           timeout: 5
           report-name: test_report.xml

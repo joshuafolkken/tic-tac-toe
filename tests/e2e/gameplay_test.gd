@@ -139,21 +139,20 @@ func test_o_wins() -> void:
 	assert_bool(_scene._ui_manager._status_label.visible).is_true()
 	assert_str(_scene._ui_manager._status_label.text).is_equal("O Wins!")
 
+# func test_draw() -> void:
+# 	assert_not_yet_implemented()
 
-func test_draw() -> void:
-	assert_not_yet_implemented()
-
-	#var positions := [
-	#BoardPosition.new(0, 0),  # X
-	#BoardPosition.new(1, 1),  # O
-	#BoardPosition.new(0, 2),  # X
-	#BoardPosition.new(0, 1),  # O
-	#BoardPosition.new(2, 0),  # X
-	#BoardPosition.new(1, 0),  # O
-	#BoardPosition.new(1, 2),  # X
-	#BoardPosition.new(2, 1),  # O
-	#BoardPosition.new(2, 2),  # X
-	#]
+#var positions := [
+#BoardPosition.new(0, 0),  # X
+#BoardPosition.new(1, 1),  # O
+#BoardPosition.new(0, 2),  # X
+#BoardPosition.new(0, 1),  # O
+#BoardPosition.new(2, 0),  # X
+#BoardPosition.new(1, 0),  # O
+#BoardPosition.new(1, 2),  # X
+#BoardPosition.new(2, 1),  # O
+#BoardPosition.new(2, 2),  # X
+#]
 #
 #for position: BoardPosition in positions:
 #var cell := _scene._cell_collection.get_element(position)
