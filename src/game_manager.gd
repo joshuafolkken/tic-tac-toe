@@ -47,7 +47,6 @@ func _update_board_history(board_position: BoardPosition) -> Array[BoardPosition
 
 func _update_game_state() -> void:
 	if not _check_game_end():
-		Log.d("change!")
 		_current_player = _current_player.next()
 		emit_player_changed()
 

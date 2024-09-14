@@ -53,5 +53,12 @@ text = "X wins!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="VersionLabel" type="Label" parent="UIManager"]
+offset_left = 30.0
+offset_top = 554.0
+offset_right = 115.0
+offset_bottom = 574.0
+text = "Ver 0.1.2"
+
 [node name="InputHandler" type="Node" parent="."]
 script = ExtResource("8_0kf00")
