@@ -12,10 +12,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install 7zip
+        run: sudo apt-get update && sudo apt-get install -y p7zip-full
+
       - name: Set up Godot
-        uses: chickensoft-games/setup-godot@v1
+        uses: firebelley/godot-export@v5.2.1
         with:
-          version: 4.3
+          godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_linux.x86_64.zip
+          godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_export_templates.tpz
+          relative_project_path: .
 
       - name: Export project to web
         run: |
