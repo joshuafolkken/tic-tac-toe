@@ -5,3 +5,5 @@ android/
 addons/
 reports/
 .DS_Store
+export/
+build/
