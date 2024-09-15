@@ -6,7 +6,7 @@ var _cell_collection := CellCollection.new()
 @onready var _cells := $Cells
 @onready var _status_label: Label = $StatusLabel
 @onready var _reset_button: Button = $ResetButton
-@onready var _version_label: Label = $VersionLabel
+@onready var _version_button: Button = $VersionButton
 
 
 func _initialize_cells() -> void:
@@ -18,7 +18,7 @@ func _initialize_cells() -> void:
 
 func _ready() -> void:
 	_initialize_cells()
-	_version_label.text = "Ver %s" % Settings.version
+	_version_button.text = "Ver %s" % Settings.version
 
 
 func update_cell(position: BoardPosition, status: CellStatus) -> void:

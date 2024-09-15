@@ -36,7 +36,10 @@ corner_radius_bottom_right = 1024
 corner_radius_bottom_left = 1024
 
 [resource]
+default_font = ExtResource("1_xgloj")
 Button/colors/font_color = Color(0.580392, 0.737255, 0.941176, 1)
+Button/colors/font_hover_color = Color(0.580392, 0.737255, 0.941176, 1)
+Button/colors/font_pressed_color = Color(0.580392, 0.737255, 0.941176, 1)
 Button/colors/icon_hover_color = Color(0.580392, 0.737255, 0.941176, 1)
 Button/colors/icon_normal_color = Color(0.580392, 0.737255, 0.941176, 1)
 Button/colors/icon_pressed_color = Color(0.580392, 0.737255, 0.941176, 1)
