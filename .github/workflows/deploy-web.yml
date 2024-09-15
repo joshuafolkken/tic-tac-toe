@@ -1,9 +1,9 @@
 name: Deploy to GitHub Pages
 
 on:
-  push:
-    # tags:
-    #   - "v*.*.*"
+  # push:
+  #   tags:
+  #     - "v*.*.*"
   workflow_run:
     workflows: ["Auto Tag on Version Change"]
     types:
