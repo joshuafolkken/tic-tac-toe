@@ -39,6 +39,7 @@ offset_top = 517.0
 offset_right = 773.0
 offset_bottom = 573.0
 focus_mode = 0
+mouse_default_cursor_shape = 2
 icon = ExtResource("4_3p3bl")
 expand_icon = true
 
