@@ -20,6 +20,7 @@ func _ready() -> void:
 	_initialize_cells()
 	_version_button.text = "Ver %s" % Settings.version
 
+
 func update_cell(position: BoardPosition, status: CellStatus) -> void:
 	var cell := _cell_collection.get_element(position)
 	cell.update_status(status)
