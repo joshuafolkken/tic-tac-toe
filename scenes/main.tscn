@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cuvea3u35e65l"]
+[gd_scene load_steps=13 format=3 uid="uid://cuvea3u35e65l"]
 
 [ext_resource type="PackedScene" uid="uid://dmryi85504aks" path="res://scenes/board.tscn" id="1_ck7lo"]
 [ext_resource type="Script" path="res://src/main.gd" id="1_oobpf"]
@@ -16,6 +16,14 @@ unicode = 114
 
 [sub_resource type="Shortcut" id="Shortcut_wdtf3"]
 events = [SubResource("InputEventKey_1ya36")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_6l5q0"]
+device = -1
+keycode = 86
+unicode = 118
+
+[sub_resource type="Shortcut" id="Shortcut_1y2ak"]
+events = [SubResource("InputEventKey_6l5q0")]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_oobpf")
@@ -52,6 +60,17 @@ shortcut = SubResource("Shortcut_wdtf3")
 icon = ExtResource("4_3p3bl")
 expand_icon = true
 
+[node name="VersionButton" type="Button" parent="UIManager"]
+offset_left = 14.0
+offset_top = 530.0
+offset_right = 138.0
+offset_bottom = 586.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+shortcut = SubResource("Shortcut_1y2ak")
+text = "Ver 1.21.3"
+expand_icon = true
+
 [node name="StatusLabel" type="Label" parent="UIManager"]
 offset_left = 169.0
 offset_top = 242.0
@@ -62,13 +81,6 @@ theme_override_font_sizes/font_size = 80
 text = "X wins!"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="VersionLabel" type="Label" parent="UIManager"]
-offset_left = 30.0
-offset_top = 554.0
-offset_right = 115.0
-offset_bottom = 574.0
-text = "Ver 0.1.2"
 
 [node name="InputHandler" type="Node" parent="."]
 script = ExtResource("8_0kf00")

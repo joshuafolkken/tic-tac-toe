@@ -6,6 +6,7 @@ signal reset_requested
 
 @onready var _ui_manager: UIManager = $"../UIManager"
 @onready var _reset_button: Button = $"../UIManager/ResetButton"
+@onready var _version_button: Button = $"../UIManager/VersionButton"
 
 
 func _initialize_cell_inputs() -> void:
@@ -19,6 +20,7 @@ func _initialize_cell_inputs() -> void:
 func _ready() -> void:
 	_initialize_cell_inputs()
 	_reset_button.pressed.connect(_on_reset_button_pressed)
+	_version_button.pressed.connect(_on_version_button_pressed)
 
 
 func _on_cell_clicked(board_position: BoardPosition) -> void:
@@ -27,3 +29,7 @@ func _on_cell_clicked(board_position: BoardPosition) -> void:
 
 func _on_reset_button_pressed() -> void:
 	reset_requested.emit()
+
+
+func _on_version_button_pressed() -> void:
+	OS.shell_open(Constants.RELEASE_URL)
