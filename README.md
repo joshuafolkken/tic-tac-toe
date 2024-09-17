@@ -1,6 +1,6 @@
 # Tic-Tac-Toe
 
-A classic game reimagined, inspired by the 1983 movie WarGames.
+A classic game reimagined, inspired by the 1983 movie [WarGames](https://en.wikipedia.org/wiki/WarGames).
 
 ## Game Overview
 
