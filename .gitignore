@@ -2,7 +2,8 @@
 .godot/
 android/
 
-addons/
+addons/*
+!addons/export_custom_manifest/
 reports/
 .DS_Store
 export/
