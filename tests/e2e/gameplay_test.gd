@@ -16,8 +16,8 @@ func test_click_cell() -> void:
 	assert_bool(cross.visible).is_true()
 	assert_bool(circle.visible).is_false()
 
-	for row in range(3):
-		for col in range(3):
+	for row in BOARD_SIZE:
+		for col in BOARD_SIZE:
 			if row != 1 or col != 1:
 				var position := BoardPosition.new(row, col)
 				var button := _scene._ui_manager._cell_collection.get_element(position)
@@ -45,8 +45,8 @@ func test_click_three_cells() -> void:
 	assert_cell_state(BoardPosition.new(2, 2), false, true, false)
 
 	# その他のセルの状態を確認
-	for row in range(3):
-		for col in range(3):
+	for row in 3:
+		for col in 3:
 			if (row != 1 or col != 1) and (row != 0 or col != 0) and (row != 2 or col != 2):
 				var other_position := BoardPosition.new(row, col)
 				var other_cell := _scene._ui_manager._cell_collection.get_element(other_position)

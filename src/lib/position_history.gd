@@ -6,7 +6,7 @@ var _elements: Array[BoardPosition] = []
 
 
 func _init() -> void:
-	for i in range(MAX_SIZE):
+	for i in MAX_SIZE:
 		_elements.append(BoardPosition.invalid)
 
 
