@@ -66,7 +66,7 @@ func test_append(
 	for board_position: BoardPosition in board_positions:
 		actuals = position_history.append(board_position)
 
-	for i in range(actuals.size()):
+	for i in actuals.size():
 		var actual: BoardPosition = actuals[i]
 		var expected: BoardPosition = expecteds[i]
 

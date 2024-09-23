@@ -9,8 +9,8 @@ extends GdUnitTestSuite
 func test_init() -> void:
 	var board := Board.new()
 
-	for row_index in range(BoardPosition.MAX_SIZE):
-		for col_index in range(BoardPosition.MAX_SIZE):
+	for row_index in BoardPosition.MAX_SIZE:
+		for col_index in BoardPosition.MAX_SIZE:
 			var board_position := BoardPosition.new(row_index, col_index)
 			var actual := board.get_element(board_position)
 			assert_bool(actual.is_equal(CellStatus.empty)).is_true()

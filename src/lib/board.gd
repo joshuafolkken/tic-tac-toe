@@ -12,8 +12,8 @@ func add_empty(board_position: BoardPosition) -> void:
 
 
 func _init() -> void:
-	for row_index in range(BoardPosition.MAX_SIZE):
-		for col_index in range(BoardPosition.MAX_SIZE):
+	for row_index in BoardPosition.MAX_SIZE:
+		for col_index in BoardPosition.MAX_SIZE:
 			var position := BoardPosition.new(row_index, col_index)
 			add_empty(position)
 
@@ -25,7 +25,7 @@ func get_element(board_position: BoardPosition) -> CellStatus:
 func _check_line(index: int, is_row: bool) -> CellStatus:
 	var cell_status_collection := CellStatusCollection.new()
 
-	for i in range(BoardPosition.MAX_SIZE):
+	for i in BoardPosition.MAX_SIZE:
 		var position := BoardPosition.new(index if is_row else i, index if not is_row else i)
 		var value := get_element(position)
 		cell_status_collection.append(value)
@@ -34,7 +34,7 @@ func _check_line(index: int, is_row: bool) -> CellStatus:
 
 
 func _check_lines(is_horizontal: bool) -> CellStatus:
-	for i in range(BoardPosition.MAX_SIZE):
+	for i in BoardPosition.MAX_SIZE:
 		var line_status := _check_line(i, is_horizontal)
 		if line_status.is_not_empty():
 			return line_status
@@ -45,7 +45,7 @@ func _check_lines(is_horizontal: bool) -> CellStatus:
 func _check_diagonal(reverse: bool) -> CellStatus:
 	var cell_status_collection := CellStatusCollection.new()
 
-	for i in range(BoardPosition.MAX_SIZE):
+	for i in BoardPosition.MAX_SIZE:
 		var col_index := BoardPosition.MAX_SIZE - i - 1 if reverse else i
 		var position := BoardPosition.new(i, col_index)
 		var value := get_element(position)
@@ -55,8 +55,8 @@ func _check_diagonal(reverse: bool) -> CellStatus:
 
 
 func _is_full() -> bool:
-	for row_index in range(BoardPosition.MAX_SIZE):
-		for col_index in range(BoardPosition.MAX_SIZE):
+	for row_index in BoardPosition.MAX_SIZE:
+		for col_index in BoardPosition.MAX_SIZE:
 			var position := BoardPosition.new(row_index, col_index)
 			var value := get_element(position)
 

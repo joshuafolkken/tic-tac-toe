@@ -16,8 +16,8 @@ func test_click_cell() -> void:
 	assert_bool(cross.visible).is_true()
 	assert_bool(circle.visible).is_false()
 
-	for row in range(3):
-		for col in range(3):
+	for row in BOARD_SIZE:
+		for col in BOARD_SIZE:
 			if row != 1 or col != 1:
 				var position := BoardPosition.new(row, col)
 				var button := _scene._ui_manager._cell_collection.get_element(position)
@@ -115,8 +115,8 @@ func test_reset_button() -> void:
 
 	_scene._ui_manager.get_reset_button().emit_signal("pressed")
 
-	for row_index in range(3):
-		for col_index in range(3):
+	for row_index in BOARD_SIZE:
+		for col_index in BOARD_SIZE:
 			var position := BoardPosition.new(row_index, col_index)
 			var cell := _scene._ui_manager._cell_collection.get_element(position)
 			assert_bool(cell._cell_button.visible).is_true()
