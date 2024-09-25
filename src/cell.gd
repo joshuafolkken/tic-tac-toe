@@ -5,6 +5,12 @@ signal button_clicked(board_position: BoardPosition)
 
 @export var button_index := 0
 
+var button_visible: bool:
+	get:
+		return _cell_button.visible
+	set(value):
+		_cell_button.visible = value
+
 @onready var _cell_button: Button = $CellButton
 @onready var _click_sound: ClickSound = $ClickSound
 @onready var _cross: Node2D = $Cross
@@ -21,10 +27,14 @@ func set_button_visibility(value: bool) -> void:
 	_cell_button.visible = value
 
 
+func is_button_visible() -> bool:
+	return _cell_button.visible
+
+
 func _show_mark(cell_status: CellStatus) -> void:
 	_cross.visible = cell_status.is_x()
 	_circle.visible = cell_status.is_o()
-	set_button_visibility(cell_status.is_empty())
+	_cell_button.visible = cell_status.is_empty()
 	fade(false)
 
 
