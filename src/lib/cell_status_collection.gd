@@ -1,10 +1,6 @@
 class_name CellStatusCollection
 
-var _elements: Array[CellStatus]
-
-
-func _init() -> void:
-	_elements = []
+var _elements: Array[CellStatus] = []
 
 
 func append(status: CellStatus) -> void:

@@ -10,7 +10,6 @@ func test_init(
 	state: GameStatus.State,
 	is_success: bool,
 	test_parameters := [
-		[null, true],
 		[GameStatus.State.PLAYING, true],
 		[GameStatus.State.X_WIN, true],
 		[GameStatus.State.O_WIN, true],

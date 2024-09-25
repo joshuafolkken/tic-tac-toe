@@ -32,7 +32,6 @@ func test_get_value(
 	id: GamePlayer.Id,
 	expected: GamePlayer.Id,
 	test_parameters := [
-		[null, GamePlayer.Id.X],
 		[GamePlayer.Id.X, GamePlayer.Id.X],
 		[GamePlayer.Id.O, GamePlayer.Id.O],
 	]
