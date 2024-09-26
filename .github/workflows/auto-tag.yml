@@ -2,8 +2,7 @@ name: Auto Tag on Version Change
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   auto-tag:
@@ -11,10 +10,12 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Auto Tag
+
+      - name: Run Auto Tag script
         run: |
-          chmod +x ./.github/scripts/auto_tag.sh
-          ./.github/scripts/auto_tag.sh
+          chmod +x .github/scripts/auto_tag.sh
+          .github/scripts/auto_tag.sh
