@@ -1,18 +1,13 @@
 name: Deploy to GitHub Pages
 
 on:
-  # push:
-  #   tags:
-  #     - "v*.*.*"
-  workflow_run:
-    workflows: ["Auto Tag on Version Change"]
-    types:
-      - completed
+  push:
+    tags:
+      - "v*.*.*"
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     permissions:
       contents: write
     concurrency:
@@ -21,6 +16,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate tag on main branch
+        run: |
+          if ! git branch --contains ${{ github.ref_name }} | grep -q "main"; then
+            echo "Tag must be on the main branch"
+            exit 1
+          fi
 
       - name: Setup Godot
         uses: lihop/setup-godot@v2
@@ -35,6 +39,7 @@ jobs:
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
+        if: success()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build/web
