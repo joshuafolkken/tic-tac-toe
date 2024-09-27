@@ -1,34 +1,60 @@
 #!/bin/bash
 
-# Set Git configuration
-git config --global user.name "$GITHUB_ACTOR"
-git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
+set -euo pipefail
 
-# Move to the project root
-cd "$(git rev-parse --show-toplevel)" || exit
+configure_git() {
+    git config --global user.name "$GITHUB_ACTOR"
+    git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
+}
 
-# Extract version from project.godot
-VERSION=v$(grep 'config/version=' project.godot | cut -d'=' -f2 | tr -d '"')
-echo "VERSION: $VERSION"
+check_project_file() {
+    if [ ! -f "project.godot" ]; then
+        echo "Error: project.godot file not found" >&2
+        exit 2
+    fi
+}
 
-# Get the latest tag
-LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
-echo "LATEST_TAG: $LATEST_TAG"
+get_version() {
+    sed -n 's/^config\/version="\(.*\)"/\1/p' project.godot
+}
 
-# Create a new tag if the version has changed
-if [ "$VERSION" = "$LATEST_TAG" ]; then
-  echo "Version unchanged. No new tag will be created."
-  exit 0
-fi
+get_latest_tag() {
+    git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0"
+}
 
-if ! git tag -a "$VERSION" -m "Release $VERSION"; then
-  echo "Failed to create tag $VERSION"
-  exit 0
-fi
+create_and_push_tag() {
+    local version=$1
+    if ! git tag -a "$version" -m "Release $version"; then
+        echo "Failed to create tag $version" >&2
+        exit 4
+    fi
 
-if ! git push origin "$VERSION"; then
-  echo "Failed to push tag $VERSION"
-  exit 0
-fi
+    if ! git push origin "$version"; then
+        echo "Failed to push tag $version" >&2
+        exit 5
+    fi
 
-echo "Created and pushed new tag $VERSION"
+    echo "Created and pushed new tag $version"
+}
+
+main() {
+    configure_git
+    check_project_file
+
+    cd "$(git rev-parse --show-toplevel)" || exit 1
+
+    VERSION="v$(get_version)"
+    echo "VERSION: $VERSION"
+
+    LATEST_TAG=$(get_latest_tag)
+    echo "LATEST_TAG: $LATEST_TAG"
+
+    if [ "$VERSION" = "$LATEST_TAG" ]; then
+        echo "No version change. No new tag will be created."
+        exit 3
+    fi
+
+    create_and_push_tag "$VERSION"
+}
+
+main

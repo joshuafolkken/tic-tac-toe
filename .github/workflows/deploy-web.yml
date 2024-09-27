@@ -1,13 +1,10 @@
 name: Deploy to GitHub Pages
 
 on:
-  push:
-    tags:
-      - "v*.*.*"
-  workflow_run:
-    workflows: ["Auto Tag on Version Change"]
-    types:
-      - completed
+  repository_dispatch:
+    types: [new-tag-created]
+  # push:
+  #   tags: [v*.*.*]
 
 jobs:
   build-and-deploy:
@@ -23,10 +20,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Validate tag on main branch
+      - name: Check current branch
         run: |
-          if ! git branch --contains ${{ github.ref_name }} | grep -q "main"; then
-            echo "Tag must be on the main branch"
+          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          echo "Current branch: $CURRENT_BRANCH"
+          if [ "$CURRENT_BRANCH" != "main" ]; then
+            echo "Error: Workflow must run on the main branch"
             exit 1
           fi
 
