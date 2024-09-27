@@ -1,6 +1,12 @@
+<div align="center">
+
 # Tic-Tac-Toe
 
+<img src="./docs/images/Screenshot 2024-09-27 at 11.47.48.png">
+
 A classic game reimagined, inspired by the 1983 movie [WarGames](https://en.wikipedia.org/wiki/WarGames).
+
+</div>
 
 ## Game Overview
 
