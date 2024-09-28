@@ -3,6 +3,7 @@ extends Node
 
 signal game_ended(result: String)
 signal player_changed(player: GamePlayer)
+signal disappear_positions_changed(positions: Array[BoardPosition])
 
 var _board: Board
 var _position_history: PositionHistory
@@ -36,13 +37,13 @@ func _update_board(board_position: BoardPosition) -> void:
 	_board.add(board_position, cell_status)
 
 
-func _update_board_history(board_position: BoardPosition) -> Array[BoardPosition]:
+func _update_board_history(board_position: BoardPosition) -> void:
 	var disappear_positions := _position_history.append(board_position)
 
 	if disappear_positions[0].is_valid():
 		_board.add_empty(disappear_positions[0])
 
-	return disappear_positions
+	disappear_positions_changed.emit(disappear_positions)
 
 
 func _update_game_state() -> void:
@@ -51,12 +52,10 @@ func _update_game_state() -> void:
 		emit_player_changed()
 
 
-func make_move(board_position: BoardPosition) -> Array[BoardPosition]:
+func make_move(board_position: BoardPosition) -> void:
 	_update_board(board_position)
-	var disappear_positions := _update_board_history(board_position)
+	_update_board_history(board_position)
 	_update_game_state()
-
-	return disappear_positions
 
 
 func get_current_player() -> GamePlayer:
