@@ -107,11 +107,11 @@ func test_mark_disappear_after_seven_clicks() -> void:
 
 func test_x_wins() -> void:
 	var positions := [
-		BoardPosition.new(0, 0),  # X
-		BoardPosition.new(1, 1),  # O
-		BoardPosition.new(0, 1),  # X
-		BoardPosition.new(2, 2),  # O
-		BoardPosition.new(0, 2),  # X
+		BoardPosition.new(0, 0),
+		BoardPosition.new(1, 1),
+		BoardPosition.new(0, 1),
+		BoardPosition.new(2, 2),
+		BoardPosition.new(0, 2),
 	]
 
 	for position: BoardPosition in positions:
@@ -124,12 +124,12 @@ func test_x_wins() -> void:
 
 func test_o_wins() -> void:
 	var positions := [
-		BoardPosition.new(0, 0),  # X
-		BoardPosition.new(0, 1),  # O
-		BoardPosition.new(1, 0),  # X
-		BoardPosition.new(1, 1),  # O
-		BoardPosition.new(2, 2),  # X
-		BoardPosition.new(2, 1),  # O
+		BoardPosition.new(0, 0),
+		BoardPosition.new(0, 1),
+		BoardPosition.new(1, 0),
+		BoardPosition.new(1, 1),
+		BoardPosition.new(2, 2),
+		BoardPosition.new(2, 1),
 	]
 
 	for position: BoardPosition in positions:
@@ -139,19 +139,41 @@ func test_o_wins() -> void:
 	assert_bool(_scene._ui_manager._status_label.visible).is_true()
 	assert_str(_scene._ui_manager._status_label.text).is_equal("O Wins!")
 
+
+func test_button_after_win() -> void:
+	var positions := [
+		BoardPosition.new(0, 0),
+		BoardPosition.new(0, 1),
+		BoardPosition.new(1, 1),
+		BoardPosition.new(1, 2),
+		BoardPosition.new(0, 2),
+		BoardPosition.new(2, 2),
+		BoardPosition.new(2, 0),
+	]
+
+	for position: BoardPosition in positions:
+		var cell := _scene._ui_manager._cell_collection.get_element(position)
+		cell._cell_button.emit_signal("pressed")
+
+	assert_bool(_scene._ui_manager._status_label.visible).is_true()
+	assert_str(_scene._ui_manager._status_label.text).is_equal("X Wins!")
+
+	var first_cell := _scene._ui_manager._cell_collection.get_element(BoardPosition.new(0, 0))
+	assert_bool(first_cell.button_visible).is_false()
+
 # func test_draw() -> void:
 # 	assert_not_yet_implemented()
 
 #var positions := [
-#BoardPosition.new(0, 0),  # X
-#BoardPosition.new(1, 1),  # O
-#BoardPosition.new(0, 2),  # X
-#BoardPosition.new(0, 1),  # O
-#BoardPosition.new(2, 0),  # X
-#BoardPosition.new(1, 0),  # O
-#BoardPosition.new(1, 2),  # X
-#BoardPosition.new(2, 1),  # O
-#BoardPosition.new(2, 2),  # X
+#BoardPosition.new(0, 0),
+#BoardPosition.new(1, 1),
+#BoardPosition.new(0, 2),
+#BoardPosition.new(0, 1),
+#BoardPosition.new(2, 0),
+#BoardPosition.new(1, 0),
+#BoardPosition.new(1, 2),
+#BoardPosition.new(2, 1),
+#BoardPosition.new(2, 2),
 #]
 #
 #for position: BoardPosition in positions:
