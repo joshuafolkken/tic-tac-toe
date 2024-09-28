@@ -27,7 +27,7 @@ Enjoy a simple and fun game of Tic-Tac-Toe!
 ## Play Now
 
 - [Play on GitHub Pages](https://joshuafolkken.github.io/tic-tac-toe/)
-- [Play on itch.io](https://joshuafolkken.itch.io/tic-tac-toe/) (Coming soon)
+- [Play on itch.io](https://joshuafolkken.itch.io/tic-tac-toe/)
 
 ## Future Enhancements
 
