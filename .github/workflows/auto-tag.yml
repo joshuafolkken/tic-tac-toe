@@ -28,8 +28,6 @@ jobs:
             echo "tag_created=false" >> $GITHUB_OUTPUT
           fi
 
-          echo "tag_created=$tag_created" >> $GITHUB_OUTPUT
-
       - name: Print tag creation status
         run: |
           echo "Tag created: ${{ steps.auto_tag.outputs.tag_created }}"
