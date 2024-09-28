@@ -46,7 +46,7 @@ main() {
     VERSION="v$(get_version)"
     echo "VERSION: $VERSION"
 
-    LATEST_TAG=$(get_latest_tag)
+    LATEST_TAG="$(get_latest_tag)"
     echo "LATEST_TAG: $LATEST_TAG"
 
     if [ "$VERSION" = "$LATEST_TAG" ]; then

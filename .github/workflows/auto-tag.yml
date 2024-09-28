@@ -21,7 +21,13 @@ jobs:
         id: auto_tag
         run: |
           chmod +x .github/scripts/auto_tag.sh
-          tag_created=$(.github/scripts/auto_tag.sh && echo true || echo false)
+
+          if .github/scripts/auto_tag.sh; then
+            echo "tag_created=true" >> $GITHUB_OUTPUT
+          else
+            echo "tag_created=false" >> $GITHUB_OUTPUT
+          fi
+
           echo "tag_created=$tag_created" >> $GITHUB_OUTPUT
 
       - name: Print tag creation status
