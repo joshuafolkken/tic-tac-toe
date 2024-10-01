@@ -10,6 +10,7 @@ var _board: Board
 var _position_history: PositionHistory
 var _current_player: GamePlayer
 
+var _is_infinite_enabled: bool
 var _is_ai_player_enabled: bool
 
 
@@ -21,7 +22,11 @@ func reset() -> void:
 	_board = Board.new()
 	_position_history = PositionHistory.new()
 	_current_player = GamePlayer.new()
+
+	# TODO: MODE SUPPORT
 	_is_ai_player_enabled = true
+	_is_infinite_enabled = false
+
 	emit_player_changed()
 
 
@@ -41,13 +46,18 @@ func _update_board(board_position: BoardPosition) -> void:
 	_board.add(board_position, cell_status)
 
 
-func _update_board_history(board_position: BoardPosition) -> void:
-	var disappear_positions := _position_history.append(board_position)
-
+func _disappear_cells(disappear_positions: Array[BoardPosition]) -> void:
 	if disappear_positions[0].is_valid():
 		_board.add_empty(disappear_positions[0])
 
 	disappear_positions_changed.emit(disappear_positions)
+
+
+func _update_board_history(board_position: BoardPosition) -> void:
+	var disappear_positions := _position_history.append(board_position)
+
+	if _is_infinite_enabled:
+		_disappear_cells(disappear_positions)
 
 
 func _on_ai_player_moved(position: BoardPosition) -> void:
