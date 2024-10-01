@@ -15,6 +15,8 @@ func before_test() -> void:
 	_scene = _scene_runner.scene()
 	assert_that(_scene).is_not_null()
 
+	_scene._game_manager._is_ai_player_enabled = false
+
 
 func is_buttons_enabled() -> void:
 	for row_index in BOARD_SIZE:

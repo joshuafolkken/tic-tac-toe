@@ -4,10 +4,13 @@ extends Node
 signal game_ended(result: String)
 signal player_changed(player: GamePlayer)
 signal disappear_positions_changed(positions: Array[BoardPosition])
+signal ai_player_moved(position: BoardPosition)
 
 var _board: Board
 var _position_history: PositionHistory
 var _current_player: GamePlayer
+
+var _is_ai_player_enabled: bool
 
 
 func emit_player_changed() -> void:
@@ -18,6 +21,7 @@ func reset() -> void:
 	_board = Board.new()
 	_position_history = PositionHistory.new()
 	_current_player = GamePlayer.new()
+	_is_ai_player_enabled = true
 	emit_player_changed()
 
 
@@ -46,16 +50,43 @@ func _update_board_history(board_position: BoardPosition) -> void:
 	disappear_positions_changed.emit(disappear_positions)
 
 
-func _update_game_state() -> void:
-	if not _check_game_end():
-		_current_player = _current_player.next()
-		emit_player_changed()
+func _on_ai_player_moved(position: BoardPosition) -> void:
+	ai_player_moved.emit(position)
+
+
+func is_ai_player() -> bool:
+	return _is_ai_player_enabled and _current_player.is_o()
+
+
+func _switch_player() -> void:
+	_current_player = _current_player.next()
+	emit_player_changed()
+
+
+func _handle_ai_move() -> void:
+	var ai_strategy := AIStrategy.RandomStrategy.new()
+	var ai_player := AIPlayer.new(get_tree(), _board, ai_strategy)
+
+	ai_player.moved.connect(_on_ai_player_moved)
+	await ai_player.move()
+
+
+func _update_game_state(board_position: BoardPosition) -> void:
+	_update_board(board_position)
+	_update_board_history(board_position)
+
+	if _check_game_end():
+		return
+
+	_switch_player()
+
+	if is_ai_player():
+		await _handle_ai_move()
 
 
 func make_move(board_position: BoardPosition) -> void:
-	_update_board(board_position)
-	_update_board_history(board_position)
-	_update_game_state()
+	if board_position.is_valid():
+		_update_game_state(board_position)
 
 
 func get_current_player() -> GamePlayer:
