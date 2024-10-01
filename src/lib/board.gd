@@ -63,9 +63,6 @@ func _create_win_status(cell_status: CellStatus) -> GameStatus:
 
 
 func get_game_status() -> GameStatus:
-	if _is_full():
-		return GameStatus.draw
-
 	var win_checks: Array[CellStatus] = [
 		_check_lines(true), _check_lines(false), _check_diagonal(false), _check_diagonal(true)
 	]
@@ -73,6 +70,9 @@ func get_game_status() -> GameStatus:
 	for win_check in win_checks:
 		if win_check.is_not_empty():
 			return _create_win_status(win_check)
+
+	if _is_full():
+		return GameStatus.draw
 
 	return GameStatus.playing
 
