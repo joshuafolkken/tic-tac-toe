@@ -12,10 +12,8 @@ func add_empty(board_position: BoardPosition) -> void:
 
 
 func _init() -> void:
-	for row_index in BoardPosition.MAX_SIZE:
-		for col_index in BoardPosition.MAX_SIZE:
-			var position := BoardPosition.new(row_index, col_index)
-			add_empty(position)
+	for position in BoardPosition.create_all_board_positions():
+		add_empty(position)
 
 
 func get_element(board_position: BoardPosition) -> CellStatus:
@@ -55,15 +53,9 @@ func _check_diagonal(reverse: bool) -> CellStatus:
 
 
 func _is_full() -> bool:
-	for row_index in BoardPosition.MAX_SIZE:
-		for col_index in BoardPosition.MAX_SIZE:
-			var position := BoardPosition.new(row_index, col_index)
-			var value := get_element(position)
-
-			if value.is_empty():
-				return false
-
-	return true
+	return _elements.values().all(
+		func(cell_status: CellStatus) -> bool: return cell_status.is_not_empty()
+	)
 
 
 func _create_win_status(cell_status: CellStatus) -> GameStatus:
@@ -83,3 +75,17 @@ func get_game_status() -> GameStatus:
 			return _create_win_status(win_check)
 
 	return GameStatus.playing
+
+
+func get_empty_positions() -> Array[BoardPosition]:
+	var empty_positions: Array[BoardPosition] = []
+
+	for row_index in BoardPosition.MAX_SIZE:
+		for col_index in BoardPosition.MAX_SIZE:
+			var position := BoardPosition.new(row_index, col_index)
+			var cell_status := get_element(position)
+
+			if cell_status.is_empty():
+				empty_positions.append(position)
+
+	return empty_positions

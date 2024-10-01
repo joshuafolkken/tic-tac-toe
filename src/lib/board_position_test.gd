@@ -40,9 +40,9 @@ func test_hash(
 	col_index: int,
 	expected: int,
 	test_parameters := [
-		[0, 0, hash([0, 0])],
-		[-1, -1, hash([-1, -1])],
-		[1, 2, hash([1, 2])],
+		[0, 0, 0],
+		[-1, -1, -4],
+		[1, 2, 5],
 	]
 ) -> void:
 	var board_position := BoardPosition.new(row_index, col_index)

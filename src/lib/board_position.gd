@@ -10,6 +10,16 @@ var _col_index: int
 static var invalid := BoardPosition.new(INVALID_INDEX, INVALID_INDEX)
 
 
+static func create_all_board_positions() -> Array[BoardPosition]:
+	var positions: Array[BoardPosition] = []
+
+	for row_index in MAX_SIZE:
+		for col_index in MAX_SIZE:
+			positions.append(BoardPosition.new(row_index, col_index))
+
+	return positions
+
+
 func _is_valid_index(index: int) -> bool:
 	return index >= MIN_INDEX and index < MAX_SIZE
 
@@ -29,7 +39,15 @@ func _init(row_index: int, col_index: int) -> void:
 
 
 func hash() -> int:
-	return hash([_row_index, _col_index])
+	return _row_index * MAX_SIZE + _col_index
+
+
+static func from_hash(hash_value: int) -> BoardPosition:
+	@warning_ignore("integer_division")
+	var row_index := hash_value / MAX_SIZE
+	var col_index := hash_value % MAX_SIZE
+
+	return BoardPosition.new(row_index, col_index)
 
 
 func _is_equal(other: BoardPosition) -> bool:
