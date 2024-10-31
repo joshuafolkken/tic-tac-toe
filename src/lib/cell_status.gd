@@ -57,3 +57,12 @@ static func from_game_player(game_player: GamePlayer) -> CellStatus:
 
 	push_error("Invalid game player: %s" % game_player)
 	return empty
+
+
+func get_icon() -> String:
+	if _state == State.X:
+		return "X"
+	if _state == State.O:
+		return "O"
+
+	return " "

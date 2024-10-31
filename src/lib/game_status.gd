@@ -20,6 +20,18 @@ func is_playing() -> bool:
 	return _state == State.PLAYING
 
 
+func is_x_win() -> bool:
+	return _state == State.X_WIN
+
+
+func is_o_win() -> bool:
+	return _state == State.O_WIN
+
+
+func is_draw() -> bool:
+	return _state == State.DRAW
+
+
 func get_result_text() -> String:
 	match _state:
 		State.X_WIN:
@@ -30,3 +42,7 @@ func get_result_text() -> String:
 			return "Draw!"
 		_:
 			return "Playing!?"
+
+
+func get_value() -> State:
+	return _state

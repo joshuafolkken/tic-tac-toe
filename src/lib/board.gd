@@ -3,6 +3,20 @@ class_name Board
 var _elements: Dictionary = {}
 
 
+func show() -> void:
+	for x in BoardPosition.MAX_SIZE:
+		var line := ""
+
+		for y in BoardPosition.MAX_SIZE:
+			var position := BoardPosition.new(x, y)
+			var value := get_element(position)
+			var cell_icon: String = value.get_icon()
+
+			line += cell_icon
+
+		print(line)
+
+
 func add(board_position: BoardPosition, cell_status: CellStatus) -> void:
 	_elements[board_position.hash()] = cell_status
 
@@ -89,3 +103,13 @@ func get_empty_positions() -> Array[BoardPosition]:
 				empty_positions.append(position)
 
 	return empty_positions
+
+
+func clone() -> Board:
+	var new_board := Board.new()
+
+	for position in BoardPosition.create_all_board_positions():
+		var cell_status := get_element(position)
+		new_board.add(position, cell_status)
+
+	return new_board

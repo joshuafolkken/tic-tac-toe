@@ -1,7 +1,13 @@
 class_name AIStrategy
 
+var _board: Board
 
-func choose_move(_empty_positions: Array[BoardPosition]) -> BoardPosition:
+
+func _init(board: Board) -> void:
+	_board = board
+
+
+func choose_move() -> BoardPosition:
 	push_error("choose_move called on base AIStrategy class")
 	return BoardPosition.invalid
 
@@ -9,13 +15,11 @@ func choose_move(_empty_positions: Array[BoardPosition]) -> BoardPosition:
 class RandomStrategy:
 	extends AIStrategy
 
-	func choose_move(empty_positions: Array[BoardPosition]) -> BoardPosition:
+	func choose_move() -> BoardPosition:
+		var empty_positions := _board.get_empty_positions()
+
+		if empty_positions.is_empty():
+			push_error("No empty cells available.")
+			return BoardPosition.invalid
+
 		return empty_positions[randi() % empty_positions.size()]
-
-
-class MinimaxStrategy:
-	extends AIStrategy
-
-	func choose_move(_empty_positions: Array[BoardPosition]) -> BoardPosition:
-		push_error("Minimax strategy not implemented yet")
-		return BoardPosition.invalid
