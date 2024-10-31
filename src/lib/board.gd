@@ -113,3 +113,12 @@ func clone() -> Board:
 		new_board.add(position, cell_status)
 
 	return new_board
+
+
+func simulate_move(position: BoardPosition, player: GamePlayer) -> Board:
+	var board_clone := clone()
+	var cell_status := CellStatus.from_game_player(player)
+
+	board_clone.add(position, cell_status)
+
+	return board_clone

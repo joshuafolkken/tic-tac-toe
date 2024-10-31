@@ -14,11 +14,12 @@ func _init(scene_tree: SceneTree, ai_strategy: AIStrategy) -> void:
 
 
 func _get_best_move() -> BoardPosition:
+	await _scene_tree.process_frame
 	return _ai_strategy.choose_move()
 
 
 func move() -> void:
-	var position := _get_best_move()
+	var position := await _get_best_move()
 
 	if position == BoardPosition.invalid:
 		push_error("No move available: invalid position")
@@ -27,8 +28,6 @@ func move() -> void:
 	if position == null:
 		push_error("No move available: empty position")
 		return
-
-	print(position._row_index, position._col_index)
 
 	await _scene_tree.create_timer(MOVE_DELAY).timeout
 	moved.emit(position)
