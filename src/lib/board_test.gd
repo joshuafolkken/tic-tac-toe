@@ -11,7 +11,7 @@ func test_init() -> void:
 
 	for row_index in BoardPosition.MAX_SIZE:
 		for col_index in BoardPosition.MAX_SIZE:
-			var board_position := BoardPosition.new(row_index, col_index)
+			var board_position := BoardPosition.get_instance(row_index, col_index)
 			var actual := board.get_element(board_position)
 			assert_bool(actual.is_equal(CellStatus.empty)).is_true()
 
@@ -25,7 +25,7 @@ func test_set_value_and_get_value(
 	expected: CellStatus.State,
 	test_parameters := [[0, 1, CellStatus.State.X], [1, 2, CellStatus.State.O]]
 ) -> void:
-	var board_position := BoardPosition.new(row_index, col_index)
+	var board_position := BoardPosition.get_instance(row_index, col_index)
 	var board := Board.new()
 
 	var cell_status := CellStatus.new(expected)

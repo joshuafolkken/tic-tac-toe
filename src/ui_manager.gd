@@ -12,7 +12,9 @@ var _cell_collection := CellCollection.new()
 func _initialize_cells() -> void:
 	for cell_line: CellLine in _cells.get_children():
 		for cell: Cell in cell_line.get_children():
-			var board_position := BoardPosition.new(cell_line.get_index(), cell.get_index())
+			var board_position := BoardPosition.get_instance(
+				cell_line.get_index(), cell.get_index()
+			)
 			_cell_collection.add(board_position, cell)
 
 

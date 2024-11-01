@@ -19,7 +19,9 @@ func _get_best_move() -> BoardPosition:
 
 
 func move() -> void:
+	Log.d("begin")
 	var position := await _get_best_move()
+	Log.d("end")
 
 	if position == BoardPosition.invalid:
 		push_error("No move available: invalid position")
@@ -29,5 +31,5 @@ func move() -> void:
 		push_error("No move available: empty position")
 		return
 
-	await _scene_tree.create_timer(MOVE_DELAY).timeout
+	# await _scene_tree.create_timer(MOVE_DELAY).timeout
 	moved.emit(position)

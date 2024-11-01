@@ -1,7 +1,7 @@
 class_name MinimaxStrategy
 extends AIStrategy
 
-const MAX_SEARCH_DEPTH = 5
+const MAX_SEARCH_DEPTH = 30
 const WINNING_SCORE = 1000
 const INITIAL_MIN_SCORE = -999999
 
@@ -29,17 +29,8 @@ func _calculate_end_game_score(game_status: GameStatus, player: GamePlayer, dept
 	return 0
 
 
-func _get_next_player_score(depth: int, board: Board, current_player: GamePlayer) -> int:
-	var next_player := current_player.next()
-	var strategy := MinimaxStrategy.new(board, next_player)
-	var score := strategy.get_high_score(depth + 1, next_player)
-
-	return score
-
-
-func _evaluate_position(depth: int, position: BoardPosition, player: GamePlayer) -> int:
-	var simulated_board := _board.simulate_move(position, player)
-	var game_status := simulated_board.get_game_status()
+func _evaluate(depth: int, player: GamePlayer) -> int:
+	var game_status := _board.get_game_status()
 
 	if not game_status.is_playing():
 		return _calculate_end_game_score(game_status, player, depth)
@@ -47,7 +38,23 @@ func _evaluate_position(depth: int, position: BoardPosition, player: GamePlayer)
 	if depth >= MAX_SEARCH_DEPTH:
 		return 0
 
-	return -_get_next_player_score(depth, simulated_board, player)
+	var empty_positions := _board.get_empty_positions()
+	if empty_positions.is_empty():
+		return 0
+
+	var best_score := INITIAL_MIN_SCORE
+	var next_player := player.next()
+	var cell_status := CellStatus.from_game_player(next_player)
+
+	for position in empty_positions:
+		_board.add(position, cell_status)
+
+		var score := _evaluate(depth + 1, next_player)
+		best_score = max(score, best_score)
+
+		_board.add(position, CellStatus.empty)
+
+	return -best_score
 
 
 func get_high_score(depth: int, player: GamePlayer) -> int:
@@ -60,8 +67,13 @@ func get_high_score(depth: int, player: GamePlayer) -> int:
 	var high_score := INITIAL_MIN_SCORE
 
 	for position in empty_positions:
-		var score := _evaluate_position(depth, position, player)
+		var cell_status := CellStatus.from_game_player(player)
+		_board.add(position, cell_status)
+
+		var score := _evaluate(depth, player)
 		high_score = max(score, high_score)
+
+		_board.add(position, CellStatus.empty)
 
 	return high_score
 
@@ -70,9 +82,12 @@ func choose_move() -> BoardPosition:
 	var available_positions := _board.get_empty_positions()
 	var best_score := INITIAL_MIN_SCORE
 	var best_position := available_positions[0]
+	var cell_status := CellStatus.from_game_player(_current_player)
 
 	for current_position in available_positions:
-		var current_score := _evaluate_position(0, current_position, _current_player)
+		_board.add(current_position, cell_status)
+		var current_score := _evaluate(0, _current_player)
+		_board.add(current_position, CellStatus.empty)
 
 		if current_score > best_score:
 			best_score = current_score

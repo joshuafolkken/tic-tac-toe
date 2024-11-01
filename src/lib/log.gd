@@ -3,7 +3,9 @@ class_name Log
 
 static func _print(category_name: String, message: String) -> void:
 	var time_dict := Time.get_datetime_dict_from_system()
-	var msec := Time.get_ticks_msec() % 1000
+	var unix_time := Time.get_unix_time_from_system()
+	var msec := int(fmod(unix_time * 1000, 1000))
+
 	var formatted_time := (
 		"%04d-%02d-%02d %02d:%02d:%02d.%03d"
 		% [

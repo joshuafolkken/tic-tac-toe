@@ -19,17 +19,17 @@ func test_append(
 	expecteds: Array,
 	test_parameters := [
 		[
-			[BoardPosition.new(1, 2)],
+			[BoardPosition.get_instance(1, 2)],
 			[BoardPosition.invalid, BoardPosition.invalid],
 		],
 		[
 			[
-				BoardPosition.new(1, 2),
-				BoardPosition.new(2, 0),
-				BoardPosition.new(0, 1),
-				BoardPosition.new(0, 0),
-				BoardPosition.new(2, 0),
-				BoardPosition.new(2, 0)
+				BoardPosition.get_instance(1, 2),
+				BoardPosition.get_instance(2, 0),
+				BoardPosition.get_instance(0, 1),
+				BoardPosition.get_instance(0, 0),
+				BoardPosition.get_instance(2, 0),
+				BoardPosition.get_instance(2, 0)
 			],
 			[BoardPosition.invalid, BoardPosition.new(1, 2)],
 		],

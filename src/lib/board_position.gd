@@ -8,16 +8,38 @@ var _row_index: int
 var _col_index: int
 
 static var invalid := BoardPosition.new(INVALID_INDEX, INVALID_INDEX)
+static var _instances := _create_all_instances()
+static var instances_array := _to_array()
 
 
-static func create_all_board_positions() -> Array[BoardPosition]:
-	var positions: Array[BoardPosition] = []
+static func create_hash(row_index: int, col_index: int) -> int:
+	return row_index * MAX_SIZE + col_index
+
+
+static func _create_all_instances() -> Dictionary:
+	var elements: Dictionary = {}
 
 	for row_index in MAX_SIZE:
 		for col_index in MAX_SIZE:
-			positions.append(BoardPosition.new(row_index, col_index))
+			var key := create_hash(row_index, col_index)
+			elements[key] = BoardPosition.new(row_index, col_index)
 
-	return positions
+	return elements
+
+
+static func get_instance(row_index: int, col_index: int) -> BoardPosition:
+	var key := create_hash(row_index, col_index)
+
+	return _instances[key]
+
+
+static func _to_array() -> Array[BoardPosition]:
+	var result: Array[BoardPosition] = []
+
+	for value: BoardPosition in _instances.values():
+		result.append(value)
+
+	return result
 
 
 func _is_valid_index(index: int) -> bool:
@@ -39,7 +61,7 @@ func _init(row_index: int, col_index: int) -> void:
 
 
 func hash() -> int:
-	return _row_index * MAX_SIZE + _col_index
+	return create_hash(_row_index, _col_index)
 
 
 static func from_hash(hash_value: int) -> BoardPosition:
@@ -47,7 +69,7 @@ static func from_hash(hash_value: int) -> BoardPosition:
 	var row_index := hash_value / MAX_SIZE
 	var col_index := hash_value % MAX_SIZE
 
-	return BoardPosition.new(row_index, col_index)
+	return BoardPosition.get_instance(row_index, col_index)
 
 
 func _is_equal(other: BoardPosition) -> bool:

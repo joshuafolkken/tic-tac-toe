@@ -22,10 +22,13 @@ func test_init(
 ) -> void:
 	match is_success:
 		true:
-			await assert_error(func() -> void: BoardPosition.new(row_index, col_index)).is_success()
+			await (
+				assert_error(func() -> void: BoardPosition.get_instance(row_index, col_index))
+				. is_success()
+			)
 		false:
 			await (
-				assert_error(func() -> void: BoardPosition.new(row_index, col_index))
+				assert_error(func() -> void: BoardPosition.get_instance(row_index, col_index))
 				. is_push_error(
 					"Invalid position: row_index=%d, col_index=%d" % [row_index, col_index]
 				)
@@ -45,7 +48,7 @@ func test_hash(
 		[1, 2, 5],
 	]
 ) -> void:
-	var board_position := BoardPosition.new(row_index, col_index)
+	var board_position := BoardPosition.get_instance(row_index, col_index)
 	var actual := board_position.hash()
 	assert_int(actual).is_equal(expected)
 
@@ -62,7 +65,7 @@ func test_to_string(
 		[2, 1, "BoardPosition(row = 2, col = 1)"],
 	]
 ) -> void:
-	var board_position := BoardPosition.new(row_index, col_index)
+	var board_position := BoardPosition.get_instance(row_index, col_index)
 	var actual := board_position.to_string()
 	assert_str(actual).is_equal(expected)
 
@@ -79,7 +82,7 @@ func test_to_index(
 		[2, 1, 7],
 	],
 ) -> void:
-	var board_position := BoardPosition.new(row_index, col_index)
+	var board_position := BoardPosition.get_instance(row_index, col_index)
 	var actual := board_position.to_index()
 	assert_int(actual).is_equal(expected)
 
@@ -100,6 +103,6 @@ func test_is_valid(
 		[2, 2, true],
 	],
 ) -> void:
-	var board_position := BoardPosition.new(row_index, col_index)
+	var board_position := BoardPosition.get_instance(row_index, col_index)
 	var actual := board_position.is_valid()
 	assert_bool(actual).is_equal(expected)
