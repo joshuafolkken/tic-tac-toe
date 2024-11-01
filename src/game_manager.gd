@@ -74,10 +74,12 @@ func _switch_player() -> void:
 
 
 func _handle_ai_move() -> void:
-	var ai_strategy := AIStrategy.RandomStrategy.new()
-	var ai_player := AIPlayer.new(get_tree(), _board, ai_strategy)
+	var ai_strategy := MinimaxStrategy.new(_board, _current_player)
+	var ai_player := AIPlayer.new(get_tree(), ai_strategy)
 
 	ai_player.moved.connect(_on_ai_player_moved)
+	await get_tree().process_frame
+	await get_tree().process_frame
 	await ai_player.move()
 
 

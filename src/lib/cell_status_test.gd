@@ -20,8 +20,9 @@ func test_init(
 		true:
 			await assert_error(func() -> void: CellStatus.new(state)).is_success()
 		false:
-			await assert_error(func() -> void: CellStatus.new(state)).is_push_error(
-				"Invalid state: -1"
+			await (
+				assert_error(func() -> void: CellStatus.new(state))
+				. is_push_error("Invalid state: -1")
 			)
 
 

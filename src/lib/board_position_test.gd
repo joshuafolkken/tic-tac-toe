@@ -22,7 +22,9 @@ func test_init(
 ) -> void:
 	match is_success:
 		true:
-			await assert_error(func() -> void: BoardPosition.new(row_index, col_index)).is_success()
+			await (
+				assert_error(func() -> void: BoardPosition.new(row_index, col_index)).is_success()
+			)
 		false:
 			await (
 				assert_error(func() -> void: BoardPosition.new(row_index, col_index))

@@ -23,7 +23,7 @@ jobs:
 
       - name: Install GDScript Toolkit
         run: |
-          pip install gdtoolkit
+          pip install "gdtoolkit==4.*"
 
       - name: Lint
         run: |

@@ -41,7 +41,7 @@ func _show_mark(cell_status: CellStatus) -> void:
 func _on_button_pressed() -> void:
 	var cell_line: CellLine = get_parent()
 	var line_index := cell_line.line_index
-	var board_position := BoardPosition.new(line_index, button_index)
+	var board_position := BoardPosition.get_instance(line_index, button_index)
 
 	button_clicked.emit(board_position)
 
