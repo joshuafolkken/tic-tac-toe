@@ -1,6 +1,6 @@
 class_name Board
 
-var _elements: Dictionary = {}
+var _cell_status_dictionary: Dictionary = {}
 
 
 func show() -> void:
@@ -18,7 +18,7 @@ func show() -> void:
 
 
 func add(board_position: BoardPosition, cell_status: CellStatus) -> void:
-	_elements[board_position.hash()] = cell_status
+	_cell_status_dictionary[board_position.hash()] = cell_status
 
 
 func add_empty(board_position: BoardPosition) -> void:
@@ -31,7 +31,7 @@ func _init() -> void:
 
 
 func get_element(board_position: BoardPosition) -> CellStatus:
-	return _elements[board_position.hash()]
+	return _cell_status_dictionary[board_position.hash()]
 
 
 func _check_line(index: int, is_row: bool) -> CellStatus:
@@ -39,7 +39,7 @@ func _check_line(index: int, is_row: bool) -> CellStatus:
 
 	for i in BoardPosition.MAX_SIZE:
 		var key := BoardPosition.create_hash(index if is_row else i, index if not is_row else i)
-		var cell_status: CellStatus = _elements[key]
+		var cell_status: CellStatus = _cell_status_dictionary[key]
 
 		if cell_status.is_empty():
 			return cell_status
@@ -68,7 +68,7 @@ func _check_diagonal(reverse: bool) -> CellStatus:
 	for i in BoardPosition.MAX_SIZE:
 		var col_index := BoardPosition.MAX_SIZE - i - 1 if reverse else i
 		var key := BoardPosition.create_hash(i, col_index)
-		var cell_status: CellStatus = _elements[key]
+		var cell_status: CellStatus = _cell_status_dictionary[key]
 
 		if cell_status.is_empty():
 			return cell_status
@@ -83,9 +83,11 @@ func _check_diagonal(reverse: bool) -> CellStatus:
 
 
 func _is_full() -> bool:
-	return _elements.values().all(
-		func(cell_status: CellStatus) -> bool: return cell_status.is_not_empty()
-	)
+	for cell_status: CellStatus in _cell_status_dictionary.values():
+		if cell_status.is_empty():
+			return false
+
+	return true
 
 
 func _create_win_status(cell_status: CellStatus) -> GameStatus:
