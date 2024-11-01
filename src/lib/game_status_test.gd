@@ -21,8 +21,9 @@ func test_init(
 		true:
 			await assert_error(func() -> void: GameStatus.new(state)).is_success()
 		false:
-			await assert_error(func() -> void: GameStatus.new(state)).is_push_error(
-				"Invalid state: %s" % str(state)
+			await (
+				assert_error(func() -> void: GameStatus.new(state))
+				. is_push_error("Invalid state: %s" % str(state))
 			)
 
 
