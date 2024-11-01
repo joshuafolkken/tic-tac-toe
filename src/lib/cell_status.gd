@@ -2,11 +2,11 @@ class_name CellStatus
 
 enum State { EMPTY, X, O }
 
-var _state: State
-
 static var empty := CellStatus.new(State.EMPTY)
 static var x := CellStatus.new(State.X)
 static var o := CellStatus.new(State.O)
+
+var _state: State
 
 
 func _init(state: State = State.EMPTY) -> void:

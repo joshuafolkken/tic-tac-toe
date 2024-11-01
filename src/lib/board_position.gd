@@ -4,12 +4,12 @@ const INVALID_INDEX := -1
 const MIN_INDEX := INVALID_INDEX
 const MAX_SIZE := 3
 
-var _row_index: int
-var _col_index: int
-
 static var invalid := BoardPosition.new(INVALID_INDEX, INVALID_INDEX)
 static var _instances := _create_all_instances()
 static var instances_array := _to_array()
+
+var _row_index: int
+var _col_index: int
 
 
 static func create_hash(row_index: int, col_index: int) -> int:

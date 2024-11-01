@@ -2,10 +2,10 @@ class_name GameStatus
 
 enum State { PLAYING, X_WIN, O_WIN, DRAW }
 
-var _state: State
-
 static var playing := GameStatus.new(State.PLAYING)
 static var draw := GameStatus.new(State.DRAW)
+
+var _state: State
 
 
 func _init(state: State = State.PLAYING) -> void:
