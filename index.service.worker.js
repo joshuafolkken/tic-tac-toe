@@ -4,7 +4,7 @@
 // Incrementing CACHE_VERSION will kick off the install event and force
 // previously cached resources to be updated from the network.
 /** @type {string} */
-const CACHE_VERSION = '1727776571|4954491';
+const CACHE_VERSION = '1730493797|5090361';
 /** @type {string} */
 const CACHE_PREFIX = 'Tic Tac Toe-sw-cache-';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
