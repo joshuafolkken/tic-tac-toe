@@ -2,13 +2,13 @@ class_name MinimaxStrategy
 extends AIStrategy
 
 const MAX_DEPTH = 9
-const WIN_SCORE = 1000
+const WIN_SCORE = 10
 const INITIAL_ALPHA = -999999
 const INITIAL_BETA = 999999
 
 var _current_player: GamePlayer
 var _nodes_evaluated := 0
-var _transposition_table := {}
+# var _transposition_table := {}
 
 
 func _init(board: Board, current_player: GamePlayer) -> void:
@@ -40,9 +40,10 @@ func _evaluate(depth: int, player: GamePlayer, alpha: int, beta: int) -> int:
 	if not game_status.is_playing():
 		return _calculate_end_game_score(game_status, player, depth)
 
-	var board_hash := _board.hash()
-	if _transposition_table.has(board_hash):
-		return _transposition_table[board_hash]
+	# MEMO: 現在の実装ではトランスポジションテーブルは使えない模様
+	# var board_hash := "%s_%d" % [_board.hash(), depth]
+	# if _transposition_table.has(board_hash):
+	# 	return _transposition_table[board_hash]
 
 	if depth >= MAX_DEPTH:
 		return 0
@@ -54,22 +55,27 @@ func _evaluate(depth: int, player: GamePlayer, alpha: int, beta: int) -> int:
 	var next_player := player.next()
 	var cell_status := CellStatus.from_game_player(next_player)
 	var current_alpha := alpha
+	var best_score := INITIAL_ALPHA
 
 	for position in empty_positions:
 		_board.add(position, cell_status)
 		var score := _evaluate(depth + 1, next_player, -beta, -current_alpha)
 		_board.add(position, CellStatus.empty)
 
+		best_score = max(best_score, score)
 		current_alpha = max(current_alpha, score)
 		if current_alpha >= beta:
 			break
 
-	_transposition_table[board_hash] = -current_alpha
+	# _transposition_table[board_hash] = -best_score
+	# prints(board_hash, -best_score)
 
-	return -current_alpha
+	return -best_score
 
 
 func choose_move() -> BoardPosition:
+	_nodes_evaluated = 0
+
 	var available_positions := _board.get_empty_positions()
 	var best_score := INITIAL_ALPHA
 	var best_position := available_positions[0]
