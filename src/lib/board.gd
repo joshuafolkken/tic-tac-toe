@@ -132,3 +132,13 @@ func get_empty_positions() -> Array[BoardPosition]:
 			empty_positions.append(position)
 
 	return empty_positions
+
+
+func hash() -> String:
+	var hash_string: String = ""
+
+	for position in BoardPosition.instances_array:
+		var cell_status := get_element(position)
+		hash_string += cell_status.get_icon()
+
+	return hash_string
