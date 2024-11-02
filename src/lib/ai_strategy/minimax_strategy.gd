@@ -8,6 +8,7 @@ const INITIAL_BETA = 999999
 
 var _current_player: GamePlayer
 var _nodes_evaluated := 0
+var _transposition_table := {}
 
 
 func _init(board: Board, current_player: GamePlayer) -> void:
@@ -39,6 +40,10 @@ func _evaluate(depth: int, player: GamePlayer, alpha: int, beta: int) -> int:
 	if not game_status.is_playing():
 		return _calculate_end_game_score(game_status, player, depth)
 
+	var board_hash := _board.hash()
+	if _transposition_table.has(board_hash):
+		return _transposition_table[board_hash]
+
 	if depth >= MAX_DEPTH:
 		return 0
 
@@ -58,6 +63,8 @@ func _evaluate(depth: int, player: GamePlayer, alpha: int, beta: int) -> int:
 		current_alpha = max(current_alpha, score)
 		if current_alpha >= beta:
 			break
+
+	_transposition_table[board_hash] = -current_alpha
 
 	return -current_alpha
 
