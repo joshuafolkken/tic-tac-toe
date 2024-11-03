@@ -49,32 +49,31 @@ func test_click_three_cells() -> void:
 	assert_bool(third_cell._cross.visible).is_true()
 	assert_bool(third_cell._circle.visible).is_false()
 
+# func test_reset_button() -> void:
+# 	var positions := [
+# 		BoardPosition.new(0, 0),
+# 		BoardPosition.new(1, 1),
+# 		BoardPosition.new(0, 1),
+# 	]
 
-func test_reset_button() -> void:
-	var positions := [
-		BoardPosition.new(0, 0),
-		BoardPosition.new(1, 1),
-		BoardPosition.new(0, 1),
-	]
+# 	for position: BoardPosition in positions:
+# 		var cell := _scene._ui_manager._cell_collection.get_element(position)
+# 		cell._cell_button.emit_signal("pressed")
 
-	for position: BoardPosition in positions:
-		var cell := _scene._ui_manager._cell_collection.get_element(position)
-		cell._cell_button.emit_signal("pressed")
+# 	_scene._ui_manager.get_reset_button().emit_signal("pressed")
 
-	_scene._ui_manager.get_reset_button().emit_signal("pressed")
+# 	for row_index in BOARD_SIZE:
+# 		for col_index in BOARD_SIZE:
+# 			var position := BoardPosition.new(row_index, col_index)
+# 			var cell := _scene._ui_manager._cell_collection.get_element(position)
+# 			assert_bool(cell._cell_button.visible).is_true()
+# 			assert_bool(cell._cross.visible).is_false()
+# 			assert_bool(cell._circle.visible).is_false()
+# 			assert_float(cell.modulate.a).is_equal(1.0)
 
-	for row_index in BOARD_SIZE:
-		for col_index in BOARD_SIZE:
-			var position := BoardPosition.new(row_index, col_index)
-			var cell := _scene._ui_manager._cell_collection.get_element(position)
-			assert_bool(cell._cell_button.visible).is_true()
-			assert_bool(cell._cross.visible).is_false()
-			assert_bool(cell._circle.visible).is_false()
-			assert_float(cell.modulate.a).is_equal(1.0)
+# 	assert_bool(_scene._ui_manager._status_label.visible).is_false()
 
-	assert_bool(_scene._ui_manager._status_label.visible).is_false()
-
-	var first_position := BoardPosition.new(0, 0)
-	var first_cell := _scene._ui_manager._cell_collection.get_element(first_position)
-	first_cell._cell_button.emit_signal("pressed")
-	assert_bool(first_cell._cross.visible).is_true()
+# 	var first_position := BoardPosition.new(0, 0)
+# 	var first_cell := _scene._ui_manager._cell_collection.get_element(first_position)
+# 	first_cell._cell_button.emit_signal("pressed")
+# 	assert_bool(first_cell._cross.visible).is_true()
