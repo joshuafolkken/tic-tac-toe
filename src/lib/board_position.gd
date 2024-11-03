@@ -86,3 +86,13 @@ func to_index() -> int:
 
 func is_valid() -> bool:
 	return _row_index != INVALID_INDEX and _col_index != INVALID_INDEX
+
+
+func get_priority() -> int:
+	if _row_index == 1 and _col_index == 1:
+		return 2
+
+	if (_row_index == 0 or _row_index == 2) and (_col_index == 0 or _col_index == 2):
+		return 1
+
+	return 0

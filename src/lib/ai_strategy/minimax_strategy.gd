@@ -77,6 +77,15 @@ func choose_move() -> BoardPosition:
 	_nodes_evaluated = 0
 
 	var available_positions := _board.get_empty_positions()
+
+	if available_positions.size() >= BoardPosition.MAX_SIZE ** 2 - 1:
+		available_positions.sort_custom(
+			func(a: BoardPosition, b: BoardPosition) -> int:
+				return a.get_priority() > b.get_priority()
+		)
+
+		return available_positions[0]
+
 	var best_score := INITIAL_ALPHA
 	var best_position := available_positions[0]
 	var cell_status := CellStatus.from_game_player(_current_player)
