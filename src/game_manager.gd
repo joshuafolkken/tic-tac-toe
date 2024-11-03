@@ -15,6 +15,9 @@ var _is_ai_player_enabled: bool
 
 
 func emit_player_changed() -> void:
+	if is_ai_player():
+		await _handle_ai_move()
+
 	player_changed.emit(_current_player)
 
 
@@ -65,7 +68,7 @@ func _on_ai_player_moved(position: BoardPosition) -> void:
 
 
 func is_ai_player() -> bool:
-	return _is_ai_player_enabled and _current_player.is_o()
+	return _is_ai_player_enabled and _current_player.is_x()
 
 
 func _switch_player() -> void:
@@ -91,9 +94,6 @@ func _update_game_state(board_position: BoardPosition) -> void:
 		return
 
 	_switch_player()
-
-	if is_ai_player():
-		await _handle_ai_move()
 
 
 func make_move(board_position: BoardPosition) -> void:
