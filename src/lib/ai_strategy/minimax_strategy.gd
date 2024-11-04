@@ -8,6 +8,7 @@ const INITIAL_BETA = 999999
 
 var _current_player: GamePlayer
 var _nodes_evaluated := 0
+var _board_history: Array[Board] = []
 # var _transposition_table := {}
 
 
@@ -40,11 +41,6 @@ func _evaluate(depth: int, player: GamePlayer, alpha: int, beta: int) -> int:
 	if not game_status.is_playing():
 		return _calculate_end_game_score(game_status, player, depth)
 
-	# MEMO: 現在の実装ではトランスポジションテーブルは使えない模様
-	# var board_hash := "%s_%d" % [_board.hash(), depth]
-	# if _transposition_table.has(board_hash):
-	# 	return _transposition_table[board_hash]
-
 	if depth >= MAX_DEPTH:
 		return 0
 
@@ -58,17 +54,15 @@ func _evaluate(depth: int, player: GamePlayer, alpha: int, beta: int) -> int:
 	var best_score := INITIAL_ALPHA
 
 	for position in empty_positions:
+		save_state()
 		_board.add(position, cell_status)
 		var score := _evaluate(depth + 1, next_player, -beta, -current_alpha)
-		_board.add(position, CellStatus.empty)
+		load_state()
 
 		best_score = max(best_score, score)
 		current_alpha = max(current_alpha, score)
 		if current_alpha >= beta:
 			break
-
-	# _transposition_table[board_hash] = -best_score
-	# prints(board_hash, -best_score)
 
 	return -best_score
 
@@ -79,6 +73,16 @@ static func pick_random(available_positions: Array[BoardPosition]) -> BoardPosit
 	)
 
 	return available_positions.pick_random()
+
+
+func save_state() -> void:
+	_board_history.append(_board)
+	_board = _board.duplicate()
+
+
+func load_state() -> void:
+	var board: Board = _board_history.pop_back()
+	_board = board
 
 
 func choose_move() -> BoardPosition:
@@ -105,9 +109,10 @@ func choose_move() -> BoardPosition:
 	var cell_status := CellStatus.from_game_player(_current_player)
 
 	for current_position in available_positions:
+		save_state()
 		_board.add(current_position, cell_status)
 		var current_score := _evaluate(0, _current_player, INITIAL_ALPHA, INITIAL_BETA)
-		_board.add(current_position, CellStatus.empty)
+		load_state()
 
 		if current_score > best_score:
 			best_score = current_score
