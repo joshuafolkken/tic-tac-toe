@@ -1,6 +1,16 @@
 class_name Board
 
 var _cell_status_dictionary: Dictionary = {}
+var _position_history := PositionHistory.new()
+# TODO: MODE SUPPORT
+var _is_infinite_enabled: bool
+
+
+func _init(is_infinite_enabled: bool) -> void:
+	_is_infinite_enabled = is_infinite_enabled
+
+	for position in BoardPosition.instances_array:
+		add_empty(position)
 
 
 func show() -> void:
@@ -17,17 +27,31 @@ func show() -> void:
 		print(line)
 
 
+func _update_history(board_position: BoardPosition) -> void:
+	var disappear_position := _position_history.append(board_position)
+
+	if disappear_position.is_valid():
+		add_empty(disappear_position)
+
+
+func duplicate() -> Board:
+	var board := Board.new(_is_infinite_enabled)
+
+	board._cell_status_dictionary = _cell_status_dictionary.duplicate()
+	board._position_history = _position_history.duplicate()
+
+	return board
+
+
 func add(board_position: BoardPosition, cell_status: CellStatus) -> void:
 	_cell_status_dictionary[board_position.hash()] = cell_status
 
+	if _is_infinite_enabled:
+		_update_history(board_position)
+
 
 func add_empty(board_position: BoardPosition) -> void:
-	add(board_position, CellStatus.empty)
-
-
-func _init() -> void:
-	for position in BoardPosition.instances_array:
-		add_empty(position)
+	_cell_status_dictionary[board_position.hash()] = CellStatus.empty
 
 
 func get_element(board_position: BoardPosition) -> CellStatus:
@@ -142,3 +166,7 @@ func hash() -> String:
 		hash_string += cell_status.get_icon()
 
 	return hash_string
+
+
+func get_fade_position() -> BoardPosition:
+	return _position_history.get_fade_position()

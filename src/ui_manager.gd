@@ -23,17 +23,23 @@ func _ready() -> void:
 	_version_button.text = "Ver %s" % Settings.version
 
 
+func update_board(board: Board) -> void:
+	for row in BoardPosition.MAX_SIZE:
+		for col in BoardPosition.MAX_SIZE:
+			var position := BoardPosition.get_instance(row, col)
+			var cell_status := board.get_element(position)
+
+			update_cell(position, cell_status)
+
+	var fade_position := board.get_fade_position()
+
+	if fade_position.is_valid():
+		_cell_collection.fade(fade_position)
+
+
 func update_cell(position: BoardPosition, status: CellStatus) -> void:
 	var cell := _cell_collection.get_element(position)
 	cell.update_status(status)
-
-
-func clear_cell(board_position: BoardPosition) -> void:
-	_cell_collection.clear(board_position)
-
-
-func fade_cell(board_position: BoardPosition) -> void:
-	_cell_collection.fade(board_position)
 
 
 func update_status_label(text: String) -> void:

@@ -4,7 +4,7 @@ extends BaseTest
 
 func is_ready() -> void:
 	assert_object(_scene._game_manager._board).is_not_null()
-	assert_object(_scene._game_manager._position_history).is_not_null()
+	#assert_object(_scene._game_manager._position_history).is_not_null()
 	assert_object(_scene._game_manager._current_player).is_not_null()
 
 	# is_reset_buttons
