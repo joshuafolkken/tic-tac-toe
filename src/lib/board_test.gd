@@ -7,7 +7,7 @@ extends GdUnitTestSuite
 
 
 func test_init() -> void:
-	var board := Board.new()
+	var board := Board.new(false)
 
 	for row_index in BoardPosition.MAX_SIZE:
 		for col_index in BoardPosition.MAX_SIZE:
@@ -26,7 +26,7 @@ func test_set_value_and_get_value(
 	test_parameters := [[0, 1, CellStatus.State.X], [1, 2, CellStatus.State.O]]
 ) -> void:
 	var board_position := BoardPosition.new(row_index, col_index)
-	var board := Board.new()
+	var board := Board.new(false)
 
 	var cell_status := CellStatus.new(expected)
 	board.add(board_position, cell_status)
