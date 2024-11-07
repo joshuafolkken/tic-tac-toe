@@ -8,6 +8,7 @@ signal board_updated(board: Board, current_player: GamePlayer)
 var _board: Board
 var _current_player: GamePlayer
 
+var _is_infinite_enabled := true
 var _is_ai_player_x_enabled: bool
 var _is_ai_player_o_enabled: bool
 
@@ -20,12 +21,12 @@ func emit_player_changed() -> void:
 
 
 func reset() -> void:
-	_board = Board.new(true)
+	_board = Board.new(_is_infinite_enabled)
 	_current_player = GamePlayer.new()
 
 	# TODO: MODE SUPPORT
 	_is_ai_player_x_enabled = true
-	_is_ai_player_o_enabled = true
+	_is_ai_player_o_enabled = false
 
 	emit_player_changed()
 
