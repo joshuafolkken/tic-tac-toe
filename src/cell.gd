@@ -12,7 +12,6 @@ var button_visible: bool:
 		_cell_button.visible = value
 
 @onready var _cell_button: Button = $CellButton
-@onready var _click_sound: ClickSound = $ClickSound
 @onready var _cross: Node2D = $Cross
 @onready var _circle: Node2D = $Circle
 
@@ -52,11 +51,6 @@ func _process(_delta: float) -> void:
 
 func update_status(cell_status: CellStatus) -> void:
 	_show_mark(cell_status)
-
-	if cell_status.is_x():
-		_click_sound.play_cross()
-	elif cell_status.is_o():
-		_click_sound.play_circle()
 
 
 func reset() -> void:

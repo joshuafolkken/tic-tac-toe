@@ -37,9 +37,9 @@ func update_board(board: Board) -> void:
 		_cell_collection.fade(fade_position)
 
 
-func update_cell(position: BoardPosition, status: CellStatus) -> void:
+func update_cell(position: BoardPosition, cell_status: CellStatus) -> void:
 	var cell := _cell_collection.get_element(position)
-	cell.update_status(status)
+	cell.update_status(cell_status)
 
 
 func update_status_label(text: String) -> void:
