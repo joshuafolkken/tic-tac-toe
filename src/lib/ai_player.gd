@@ -2,7 +2,7 @@ class_name AIPlayer
 
 signal moved(position: BoardPosition)
 
-const MOVE_DELAY := 1.0
+const MOVE_DELAY := 0.2
 
 var _scene_tree: SceneTree
 var _ai_strategy: AIStrategy

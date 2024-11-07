@@ -25,8 +25,8 @@ func reset() -> void:
 	_current_player = GamePlayer.new()
 
 	# TODO: MODE SUPPORT
-	_is_ai_player_x_enabled = true
-	_is_ai_player_o_enabled = false
+	_is_ai_player_x_enabled = false
+	_is_ai_player_o_enabled = true
 
 	emit_player_changed()
 
