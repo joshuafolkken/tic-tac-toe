@@ -15,7 +15,9 @@ func before_test() -> void:
 	_scene = _scene_runner.scene()
 	assert_that(_scene).is_not_null()
 
-	_scene._game_manager._is_ai_player_enabled = false
+	_scene._game_manager._is_infinite_enabled = false
+	_scene._game_manager._is_ai_player_x_enabled = false
+	_scene._game_manager._is_ai_player_o_enabled = false
 
 
 func is_buttons_enabled() -> void:
