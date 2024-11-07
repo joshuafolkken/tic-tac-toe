@@ -25,7 +25,7 @@ func reset() -> void:
 
 	# TODO: MODE SUPPORT
 	_is_ai_player_x_enabled = true
-	_is_ai_player_o_enabled = false
+	_is_ai_player_o_enabled = true
 
 	emit_player_changed()
 
@@ -79,6 +79,7 @@ func _handle_ai_move() -> void:
 	ai_player.moved.connect(_on_ai_player_moved)
 	await get_tree().process_frame
 	await get_tree().process_frame
+
 	await ai_player.move()
 
 

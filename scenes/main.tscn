@@ -37,9 +37,6 @@ closed = true
 width = 8.0
 metadata/_edit_group_ = true
 
-[node name="Board" parent="." instance=ExtResource("1_ck7lo")]
-position = Vector2(400, 300)
-
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("4_hu2l0")
 
@@ -81,6 +78,9 @@ theme_override_font_sizes/font_size = 80
 text = "X wins!"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Board" parent="UIManager" instance=ExtResource("1_ck7lo")]
+position = Vector2(400, 300)
 
 [node name="InputHandler" type="Node" parent="."]
 script = ExtResource("8_0kf00")
