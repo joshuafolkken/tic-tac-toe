@@ -26,8 +26,13 @@ func _ready() -> void:
 	reset()
 
 
-func _on_board_updated(board: Board) -> void:
+func _on_board_updated(board: Board, current_player: GamePlayer) -> void:
 	_ui_manager.update_board(board)
+
+	if current_player.is_x():
+		_click_sound.play_cross()
+	elif current_player.is_o():
+		_click_sound.play_circle()
 
 
 func _on_cell_clicked(position: BoardPosition) -> void:

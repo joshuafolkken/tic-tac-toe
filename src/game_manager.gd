@@ -3,7 +3,7 @@ extends Node
 
 signal game_ended(result: String)
 signal player_changed(player: GamePlayer)
-signal board_updated(board: Board)
+signal board_updated(board: Board, current_player: GamePlayer)
 
 var _board: Board
 var _current_player: GamePlayer
@@ -44,7 +44,7 @@ func _check_game_end() -> bool:
 func _update_board(board_position: BoardPosition) -> void:
 	var cell_status := CellStatus.from_game_player(_current_player)
 	_board.add(board_position, cell_status)
-	board_updated.emit(_board)
+	board_updated.emit(_board, _current_player)
 
 
 func is_ai_player() -> bool:
