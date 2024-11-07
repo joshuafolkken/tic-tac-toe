@@ -19,6 +19,8 @@ func _get_best_move() -> BoardPosition:
 
 
 func move() -> void:
+	var start_time := Time.get_ticks_msec()
+
 	Log.d("begin")
 	var position := await _get_best_move()
 	Log.d("end")
@@ -31,5 +33,10 @@ func move() -> void:
 		push_error("No move available: empty position")
 		return
 
-	# await _scene_tree.create_timer(MOVE_DELAY).timeout
+	var end_time := Time.get_ticks_msec()
+	var elapsed_time := (end_time - start_time) / 1000.0
+
+	if elapsed_time < MOVE_DELAY:
+		await _scene_tree.create_timer(MOVE_DELAY - elapsed_time).timeout
+
 	moved.emit(position)

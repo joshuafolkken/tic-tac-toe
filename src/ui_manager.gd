@@ -7,6 +7,7 @@ var _cell_collection := CellCollection.new()
 @onready var _status_label: Label = $StatusLabel
 @onready var _reset_button: Button = $ResetButton
 @onready var _version_button: Button = $VersionButton
+@onready var _board: Node2D = $Board
 
 
 func _initialize_cells() -> void:
@@ -59,9 +60,16 @@ func _reset_all_cells() -> void:
 	_cell_collection.reset_all()
 
 
+func reset_board() -> void:
+	_board.visible = false
+	await get_tree().create_timer(0.1).timeout
+	_board.visible = true
+
+
 func reset() -> void:
 	_hide_status_label()
 	_reset_all_cells()
+	await reset_board()
 
 
 func get_cells() -> Node:

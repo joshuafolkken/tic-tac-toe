@@ -17,7 +17,7 @@ func _connect_signals() -> void:
 
 func reset() -> void:
 	_game_manager.reset()
-	_ui_manager.reset()
+	await _ui_manager.reset()
 	_click_sound.play_reset()
 
 
