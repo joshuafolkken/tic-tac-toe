@@ -36,6 +36,9 @@ func _calculate_end_game_score(game_status: GameStatus, player: GamePlayer, dept
 
 
 func _evaluate(depth: int, player: GamePlayer, alpha: int, beta: int) -> int:
+	if not _is_ai_active:
+		return 0
+
 	var game_status := _board.get_game_status()
 
 	if not game_status.is_playing():
@@ -109,6 +112,9 @@ func choose_move() -> BoardPosition:
 	var cell_status := CellStatus.from_game_player(_current_player)
 
 	for current_position in available_positions:
+		if not _is_ai_active:
+			return null
+
 		save_state()
 		_board.add(current_position, cell_status)
 		var current_score := _evaluate(0, _current_player, INITIAL_ALPHA, INITIAL_BETA)
@@ -119,5 +125,7 @@ func choose_move() -> BoardPosition:
 			best_position = current_position
 
 	prints("Nodes evaluated:", _nodes_evaluated)
+
+	print(_is_ai_active)
 
 	return best_position

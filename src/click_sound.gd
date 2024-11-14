@@ -3,7 +3,7 @@ extends AudioStreamPlayer2D
 
 
 func _ready() -> void:
-	pass
+	volume_db = -6
 
 
 func _process(_delta: float) -> void:
