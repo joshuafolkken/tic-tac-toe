@@ -13,6 +13,10 @@ func _init(scene_tree: SceneTree, ai_strategy: AIStrategy, ai_delay_sec: float) 
 	_ai_delay_sec = ai_delay_sec
 
 
+func stop() -> void:
+	_ai_strategy.stop()
+
+
 func _get_best_move() -> BoardPosition:
 	await _scene_tree.process_frame
 	return _ai_strategy.choose_move()
@@ -39,4 +43,5 @@ func move() -> void:
 	if elapsed_time < _ai_delay_sec:
 		await _scene_tree.create_timer(_ai_delay_sec - elapsed_time).timeout
 
-	moved.emit(position)
+	if _ai_strategy.is_active():
+		moved.emit(position)

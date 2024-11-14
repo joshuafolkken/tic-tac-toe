@@ -18,7 +18,7 @@ func _connect_signals() -> void:
 	_game_manager.board_updated.connect(_on_board_updated)
 	_game_manager.ai_reset.connect(_on_ai_reset)
 	_input_handler.cell_clicked.connect(_on_cell_clicked)
-	_input_handler.reset_requested.connect(_on_reset)
+	_input_handler.reset_requested.connect(_on_reset_requested)
 
 
 func _on_ai_reset() -> void:
@@ -29,21 +29,25 @@ func _on_ai_reset() -> void:
 
 	print(_ai_delay_sec)
 
-	_game_manager.reset(_ai_delay_sec)
+	_game_manager.reset(_ai_delay_sec, true, true)
 	await _ui_manager.reset()
 
 
-func _on_reset() -> void:
+func _on_reset(is_ai_player_x_enabled: bool = false, is_ai_player_o_enabled: bool = false) -> void:
 	_ai_delay_sec = AI_DELAY_SEC_DEFAULT
 
-	_game_manager.reset(_ai_delay_sec)
+	_game_manager.reset(_ai_delay_sec, is_ai_player_x_enabled, is_ai_player_o_enabled)
 	await _ui_manager.reset()
 	_click_sound.play_reset()
 
 
+func _on_reset_requested() -> void:
+	_on_reset(false, true)
+
+
 func _ready() -> void:
 	_connect_signals()
-	_on_reset()
+	_on_reset(true, true)
 
 
 func _on_board_updated(board: Board, current_player: GamePlayer) -> void:
