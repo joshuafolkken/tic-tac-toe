@@ -30,7 +30,6 @@ func reset(
 		_ai_player.stop()
 
 	_is_infinite_enabled = not (is_ai_player_x_enabled and is_ai_player_o_enabled)
-	prints(_is_ai_player_x_enabled, is_ai_player_x_enabled, is_ai_player_x_enabled)
 
 	_ai_delay_sec = ai_delay_sec
 	_board = Board.new(_is_infinite_enabled)

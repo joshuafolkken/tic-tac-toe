@@ -124,8 +124,7 @@ func choose_move() -> BoardPosition:
 			best_score = current_score
 			best_position = current_position
 
-	prints("Nodes evaluated:", _nodes_evaluated)
-
-	print(_is_ai_active)
+	# prints("Nodes evaluated:", _nodes_evaluated)
+	# print(_is_ai_active)
 
 	return best_position
