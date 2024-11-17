@@ -3,13 +3,21 @@ extends Node
 
 const AI_DELAY_SEC_DEFAULT = 0.8
 const AI_DELAY_SEC_MINIMUM = 0.01
+# const CLICK_AUDIO_STREAM: AudioStream = preload("res://assets/sounds/tic_tac_toe_sound.wav")
 
 var _ai_delay_sec: float
 
 @onready var _game_manager: GameManager = $GameManager
 @onready var _ui_manager: UIManager = $UIManager
 @onready var _input_handler: InputHandler = $InputHandler
-@onready var _click_sound: ClickSound = $ClickSound
+# @onready var _click_sound: ClickSound = $ClickSound
+@onready var _click_sound2: ClickSound2 = $ClickSound2
+
+
+func _ready() -> void:
+	# AudioServer.register_stream_as_sample(CLICK_AUDIO_STREAM)
+	_connect_signals()
+	_on_reset(true, true)
 
 
 func _connect_signals() -> void:
@@ -27,10 +35,10 @@ func _on_ai_reset() -> void:
 	if _ai_delay_sec >= AI_DELAY_SEC_MINIMUM:
 		_ai_delay_sec = _ai_delay_sec * 0.8
 
-	print(_ai_delay_sec)
+	# print(_ai_delay_sec)
 
 	_game_manager.reset(_ai_delay_sec, true, true)
-	await _ui_manager.reset()
+	_ui_manager.reset()
 
 
 func _on_reset(is_ai_player_x_enabled: bool = false, is_ai_player_o_enabled: bool = false) -> void:
@@ -38,25 +46,29 @@ func _on_reset(is_ai_player_x_enabled: bool = false, is_ai_player_o_enabled: boo
 
 	_game_manager.reset(_ai_delay_sec, is_ai_player_x_enabled, is_ai_player_o_enabled)
 	await _ui_manager.reset()
-	_click_sound.play_reset()
+	# _click_sound.play_reset()
+	_click_sound2.play_reset()
+	# _play_click_sound_test()
+
+
+# func _play_click_sound_test() -> void:
+# 	var audio_stream_player := AudioStreamPlayer.new()
+# 	# audio_stream_player.stream = CLICK_AUDIO_STREAM
+# 	add_child(audio_stream_player)
+# 	audio_stream_player.play()
 
 
 func _on_reset_requested() -> void:
 	_on_reset(false, true)
 
 
-func _ready() -> void:
-	_connect_signals()
-	_on_reset(true, true)
-
-
 func _on_board_updated(board: Board, current_player: GamePlayer) -> void:
 	_ui_manager.update_board(board)
 
 	if current_player.is_x():
-		_click_sound.play_cross()
+		_click_sound2.play_cross()
 	elif current_player.is_o():
-		_click_sound.play_circle()
+		_click_sound2.play_circle()
 
 
 func _on_cell_clicked(position: BoardPosition) -> void:
@@ -67,7 +79,7 @@ func _on_cell_clicked(position: BoardPosition) -> void:
 func _on_game_ended(result: String) -> void:
 	_ui_manager.end_game()
 	_ui_manager.update_status_label(result)
-	_click_sound.play_game_end()
+	_click_sound2.play_game_end()
 
 
 func _on_player_changed(_player: GamePlayer) -> void:

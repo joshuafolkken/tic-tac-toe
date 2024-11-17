@@ -24,10 +24,7 @@ func _get_best_move() -> BoardPosition:
 
 func move() -> void:
 	var start_time := Time.get_ticks_msec()
-
-	Log.d("begin")
 	var position := await _get_best_move()
-	Log.d("end")
 
 	if position == BoardPosition.invalid:
 		push_error("No move available: invalid position")

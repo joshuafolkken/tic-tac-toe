@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cuvea3u35e65l"]
+[gd_scene load_steps=15 format=3 uid="uid://cuvea3u35e65l"]
 
 [ext_resource type="PackedScene" uid="uid://dmryi85504aks" path="res://scenes/board.tscn" id="1_ck7lo"]
 [ext_resource type="Script" path="res://src/main.gd" id="1_oobpf"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://dxenlckbrd3fb" path="res://scenes/cell_matrix.tscn" id="4_yfwbp"]
 [ext_resource type="Script" path="res://src/ui_manager.gd" id="5_p4x7d"]
 [ext_resource type="Script" path="res://src/input_handler.gd" id="8_0kf00"]
+[ext_resource type="Script" path="res://scenes/click_sound_2.gd" id="9_85g3d"]
+[ext_resource type="AudioStream" uid="uid://2pvh5nwuxitj" path="res://assets/sounds/tic_tac_toe_sound.wav" id="9_choun"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_1ya36"]
 device = -1
@@ -30,6 +32,7 @@ script = ExtResource("1_oobpf")
 
 [node name="ClickSound" parent="." instance=ExtResource("2_yuer3")]
 position = Vector2(717, 517)
+stream = null
 
 [node name="Frame" type="Line2D" parent="."]
 points = PackedVector2Array(10, 10, 790, 10, 790, 590, 10, 590)
@@ -84,3 +87,7 @@ vertical_alignment = 1
 
 [node name="InputHandler" type="Node" parent="."]
 script = ExtResource("8_0kf00")
+
+[node name="ClickSound2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_choun")
+script = ExtResource("9_85g3d")
