@@ -94,8 +94,6 @@ func _handle_ai_move() -> void:
 	_ai_player = AIPlayer.new(get_tree(), ai_strategy, _ai_delay_sec)
 
 	_ai_player.moved.connect(_on_ai_player_moved)
-	await get_tree().process_frame
-	await get_tree().process_frame
 
 	await _ai_player.move()
 
